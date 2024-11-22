@@ -9,19 +9,24 @@ class Loginpage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(),
-            Image.asset("../../assets/images/logo.jpg"),
-            Text(
-              'NoMark',
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '세상을 끊임없이 이어주는 Nomard Market',
-              style: TextStyle(
-                fontSize: 15,
-              ),
+            Stack(
+              alignment: Alignment.center, // Stack 내부 위젯들을 가운데 정렬
+              children: [
+                Image.asset(
+                  "assets/images/nomadmarketlogo4_3.png",
+                ),
+                Positioned(
+                  bottom: 80,
+                  child: Text(
+                    'Shop Globally, Travel Locally',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.purple, // 보라색으로 텍스트 설정
+                      fontWeight: FontWeight.w500, // 텍스트를 조금 더 굵게
+                    ),
+                  ),
+                ),
+              ],
             ),
             Spacer(),
             Container(
