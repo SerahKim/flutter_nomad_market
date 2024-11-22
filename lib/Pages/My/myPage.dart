@@ -103,14 +103,14 @@ class MyPage extends StatelessWidget {
                     SizedBox(height: 20),
                     ListTile(
                       leading: Icon(Icons.public),
-                      title: Text('관심 있는 국가 변경'),
+                      title: Text('관심 있는 도시 변경'),
                       contentPadding: EdgeInsets.zero,
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    LocationSetting(selectedCountry: '')));
+                                    CitySelection(selectedCity: '')));
                       },
                     ),
                     ListTile(

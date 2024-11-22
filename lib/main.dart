@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_nomad_market/Pages/My/myPage.dart'; //불러오기 위한 루트
+import 'Pages/Login/loginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,11 +7,11 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyPage(), //내가 확인하고 싶은 class명
+      home: LoginPage(), // LoginPage로 시작
     );
   }
 }

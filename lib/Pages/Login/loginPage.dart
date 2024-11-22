@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'Widgets/LocaleSetting.dart';
 
-class Loginpage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,19 +11,17 @@ class Loginpage extends StatelessWidget {
           children: [
             Spacer(),
             Stack(
-              alignment: Alignment.center, // Stack 내부 위젯들을 가운데 정렬
+              alignment: Alignment.center,
               children: [
-                Image.asset(
-                  "assets/system_images/nomadmarketlogo4_3.png",
-                ),
+                Image.asset("assets/system_images/nomadmarketlogo4_3.png"),
                 Positioned(
                   bottom: 80,
                   child: Text(
                     'Shop Globally, Travel Locally',
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.purple, // 보라색으로 텍스트 설정
-                      fontWeight: FontWeight.w500, // 텍스트를 조금 더 굵게
+                      color: Colors.purple,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -34,7 +33,15 @@ class Loginpage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LanguageSetting(selectedLanguage: ''),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
                     foregroundColor: Colors.white,
