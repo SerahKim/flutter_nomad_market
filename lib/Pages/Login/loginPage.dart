@@ -13,7 +13,7 @@ class Loginpage extends StatelessWidget {
               alignment: Alignment.center, // Stack 내부 위젯들을 가운데 정렬
               children: [
                 Image.asset(
-                  "assets/images/nomadmarketlogo4_3.png",
+                  "assets/system_images/nomadmarketlogo4_3.png",
                 ),
                 Positioned(
                   bottom: 80,
