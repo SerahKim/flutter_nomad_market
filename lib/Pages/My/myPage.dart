@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/profilePage.dart';
+import 'package:flutter_nomad_market/Pages/My/Widgets/purchaseHistory.dart';
+import 'package:flutter_nomad_market/Pages/My/Widgets/salesHistory.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -66,16 +69,32 @@ class MyPage extends StatelessWidget {
                       leading: Icon(Icons.favorite_border),
                       title: Text('관심목록'),
                       contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        // TODO: 관심목록 페이지로 이동
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => WishlistPage()));
+                      },
                     ),
                     ListTile(
                       leading: Icon(Icons.receipt_long),
                       title: Text('판매내역'),
                       contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SalesHistoryPage()));
+                      },
                     ),
                     ListTile(
                       leading: Icon(Icons.shopping_bag_outlined),
                       title: Text('구매내역'),
                       contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PurchaseHistoryPage()));
+                      },
                     ),
                     SizedBox(height: 20),
                     Text('환경 설정',
@@ -86,11 +105,25 @@ class MyPage extends StatelessWidget {
                       leading: Icon(Icons.public),
                       title: Text('관심 있는 국가 변경'),
                       contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LocationSetting(selectedCountry: '')));
+                      },
                     ),
                     ListTile(
                       leading: Icon(Icons.language),
                       title: Text('언어 변경'),
                       contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    LanguageSetting(selectedLanguage: '')));
+                      },
                     ),
                   ],
                 ),
