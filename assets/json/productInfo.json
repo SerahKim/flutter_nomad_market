@@ -1,0 +1,20 @@
+{
+    "productInfo" : [
+        {
+            "image" : "assets/images/defaultprofile.jpg",
+            "title" : "아이폰 16 pro 블랙 256GB",
+            "status" : "판매중",
+            "price" : "₩1,200,000"
+        },{
+            "image" : "assets/images/nomadmarketlogo1_1.png",
+            "title" : "나이키 덩크로우 레트로 남성 네이비",
+            "status" : "판매 완료",
+            "price" : "₩130,000"
+        },{
+            "image" : "assets/images/nomadmarketlogo2_1.png",
+            "title" : "뉴질랜드산 마누카 꿀",
+            "status" : "판매중",
+            "price" : "₩6,000"
+        }
+    ]
+}
