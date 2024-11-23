@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nomad_market/Pages/Home/Widgets/dropdownButton.dart';
 import 'package:flutter_nomad_market/Pages/Home/Widgets/productList.dart';
+import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,8 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int productCount = 10;
-
+  //상품 정렬
   final List<String> productCategory = [
     '전체',
     '전자기기 및 가전',
@@ -32,14 +32,27 @@ class _HomePageState extends State<HomePage> {
   ];
   String? selectedProductCategory = '전체';
 
+  //거래 상태 정렬
   final List<String> salesOrpurchaseCategory = ['전체', '삽니다', '팝니다'];
   String? selectedSalesOrPurchaseCategory = '전체';
 
+  //판매 상태 정렬
   final List<String> waitingCategory = ['모든 상품', '거래 미완료'];
   String? selectedWaitingCategory = '모든 상품';
 
+  //기본 정렬
   final List<String> sortCategory = ['최신순', '좋아요순', '댓글순'];
   String? selectedSortCategory = '최신순';
+
+  int productLength = 0;
+
+  void updateProductLength(int length) {
+    if (productLength != length) {
+      setState(() {
+        productLength = length;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +63,14 @@ class _HomePageState extends State<HomePage> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 30),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LocationSetting(selectedCountry: ''),
+                ),
+              );
+            },
             child: Row(
               children: [
                 Text(
@@ -124,7 +144,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Text('$productCount개의 상품이 있습니다.'),
+                Text('$productLength개의 상품이 있습니다.'),
                 Spacer(),
                 Container(
                   width: 150,
@@ -142,13 +162,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: productCount,
-              itemBuilder: (context, index) {
-                return ProductList();
-              },
-            ),
+            child: ProductList(dataLength: updateProductLength),
           ),
+          Spacer(),
           CommonBottomWidget(),
         ],
       ),
