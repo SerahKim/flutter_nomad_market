@@ -14,21 +14,19 @@ class DropdownButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: DropdownButton<String>(
-        isExpanded: true,
-        value: selectedValue,
-        items: items
-            .map((item) => DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ))
-            .toList(),
-        onChanged: onChanged,
-      ),
+    return DropdownButton<String>(
+      isExpanded: true,
+      value: selectedValue,
+      items: items
+          .map((item) => DropdownMenuItem<String>(
+                value: item,
+                child: Text(
+                  item,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ))
+          .toList(),
+      onChanged: onChanged,
     );
   }
 }
