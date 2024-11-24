@@ -1,0 +1,100 @@
+{
+    "productInfo" : [
+        {
+            "image": [  "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "아이폰 16 pro 블랙 256GB",
+            "productCategory" : "전자기기 및 가전",
+            "productStatus" : "삽니다",
+            "waitingStatus" : "거래 미완료",
+            "status" : "판매중",
+            "price" : "₩1,200,000",
+            "decription" : "사용감 없고 새폰입니다.\n 엄청 좋아요.\n 뜯지도 않았습니다.\n",
+            "priceStatus" : "가격 제안 가능"
+            
+        },
+        {
+            "image": [ "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png", 
+                        "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "마누카꿀",
+            "productCategory" : "식품 및 음료",
+            "productStatus" : "팝니다",
+            "waitingStatus" : "거래 완료",
+
+            "status" : "판매 완료",
+            "price" : "₩10,000",
+            "decription" : "엄청 달고 맛있습니다. 뉴질랜드에서 직접 공수해온거에요. 산지얼마 안돼서 싱싱합니다.",
+            "priceStatus" : "가격 제안 불가"
+        }, {
+            "image": [  "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "아이폰 16 pro 블랙 256GB",
+            "productCategory" : "전자기기 및 가전",
+            "productStatus" : "팝니다",
+            "waitingStatus" : "거래 미완료",
+
+            "status" : "판매중",
+            "price" : "₩1,200,000",
+            "decription" : "사용감 없고 새폰입니다.\n 엄청 좋아요.\n 뜯지도 않았습니다.\n",
+            "priceStatus" : "가격 제안 가능"
+        },
+        {
+            "image": [ "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png", 
+                        "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "마누카꿀",
+            "productCategory" : "식품 및 음료",
+            "productStatus" : "삽니다",
+            "waitingStatus" : "거래 완료",
+
+            "status" : "판매 완료",
+            "price" : "₩10,000",
+            "decription" : "엄청 달고 맛있습니다. 뉴질랜드에서 직접 공수해온거에요. 산지얼마 안돼서 싱싱합니다.",
+            "priceStatus" : "가격 제안 불가"
+        }, {
+            "image": [  "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "아이폰 16 pro 블랙 256GB",
+            "productCategory" : "키즈 및 베이비",
+            "productStatus" : "삽니다",
+            "waitingStatus" : "거래 미완료",
+
+            "status" : "판매중",
+            "price" : "₩1,200,000",
+            "decription" : "사용감 없고 새폰입니다.\n 엄청 좋아요.\n 뜯지도 않았습니다.\n",
+            "priceStatus" : "가격 제안 가능"
+        },
+        {
+            "image": [ "assets/images/nomadmarketlogo2_2.png" ,
+                        "assets/images/nomadmarketlogo3_1.png", 
+                        "assets/images/defaultprofile.jpg",
+                        "assets/images/nomadmarketlogo4_3.png",
+                        "assets/images/defaultprofile.jpg"],
+            "title" : "마누카꿀",
+            "productCategory" : "패션 및 액세서리",
+            "productStatus" : "삽니다",
+            "waitingStatus" : "거래 완료",
+
+            "status" : "판매 완료",
+            "price" : "₩10,000",
+            "decription" : "엄청 달고 맛있습니다. 뉴질랜드에서 직접 공수해온거에요. 산지얼마 안돼서 싱싱합니다.",
+            "priceStatus" : "가격 제안 불가"
+        }
+
+
+    ]
+}
