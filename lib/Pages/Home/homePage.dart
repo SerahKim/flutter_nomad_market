@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_nomad_market/Pages/Description/descriptionPage.dart';
 import 'package:flutter_nomad_market/Pages/Home/Widgets/dropdownButton.dart';
 import 'package:flutter_nomad_market/Pages/Home/Widgets/productList.dart';
@@ -78,6 +75,42 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+//선택 통화에 따른 출력 형태
+  String formatPrice(String price, String currency) {
+    if (currency == 'KRW') {
+      return '₩${"priceWon"}';
+    } else {
+      return '\$${"priceDollar"}';
+    }
+  }
+
+  // 선택된 통화를 가져오는 메서드
+  Future<String> _getSelectedCurrency() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('selectedCurrency') ?? 'USD'; // 설정되지 않은 경우 기본값은 USD
+  }
+
+  void _navigateToDescriptionPage(
+      Map<String, dynamic> item, String selectedCurrency) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DescriptionPage(
+          productImage: item["images"] ?? [],
+          productTitle: item["title"] ?? '제목 없음',
+          productCategory: item["productCategory"] ?? '카테고리 없음',
+          productStatus: item["productStatus"] ?? '상태 없음',
+          waitingStatus: item["waitingStatus"] ?? '대기 상태 없음',
+          productDescription: item["description"] ?? '설명 없음',
+          priceStatus: item['priceStatus'] ?? '가격 정보 없음',
+          productPriceKRW: item["priceWon"] ?? '가격없음',
+          productPriceUSD: item["priceDollar"] ?? '가격없음',
+          selectedCurrency: selectedCurrency,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,6 +180,7 @@ class _HomePageState extends State<HomePage> {
           } else if (snapshot.hasData) {
             //dropdownBox 선택 값에 따른 필터링 부분
             List<dynamic> filteredProducts = snapshot.data!.where((product) {
+              bool cityMatch = product['selectedCity'] == selectedCity;
               //상품 카테고리
               bool categoryMatch = selectedProductCategory == '전체' ||
                   product['productCategory'] == selectedProductCategory;
@@ -160,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                   product['waitingStatus'] == selectedWaitingCategory;
 
               //categoryMatch, statusMatch, waitingMatch이 true인 product만 filteredProducts 리스트에 포함시킴.
-              return categoryMatch && statusMatch && waitingMatch;
+              return cityMatch && categoryMatch && statusMatch && waitingMatch;
             }).toList();
 
             return Column(
@@ -231,29 +265,41 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    //위에서 필터링 된 것들만 보여줌.
-                    itemCount: filteredProducts.length,
-                    itemBuilder: (context, index) {
-                      final item = filteredProducts[index];
-                      return ProductList(
-                        nextPage: DescriptionPage(
-                            productImage: item["images"],
-                            productTitle: item["title"],
-                            productCategory: item["productCategory"],
-                            productStatus: item["productStatus"],
-                            productPrice: item["priceWon"],
-                            productDescription: item["decription"],
-                            priceStatus: item['priceStatus']),
-                        productThumbnail: item["images"][0],
-                        productTitle: item["title"],
-                        productStatus: item["waitingStatus"],
-                        productPrice: item["priceWon"],
-                      );
+                  child: FutureBuilder<String>(
+                    future: _getSelectedCurrency(),
+                    builder: (context, currencySnapshot) {
+                      if (currencySnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (currencySnapshot.hasError) {
+                        return Center(child: Text('통화 로딩 중 오류 발생'));
+                      } else {
+                        final selectedCurrency = currencySnapshot.data!;
+                        return ListView.builder(
+                          itemCount: filteredProducts.length,
+                          itemBuilder: (context, index) {
+                            final item = filteredProducts[index];
+                            final productTitle = item["title"] ?? '제목 없음';
+                            return ProductList(
+                              productThumbnail: (item["images"] != null &&
+                                      item["images"].isNotEmpty)
+                                  ? item["images"][0]
+                                  : 'assets/images/product_images/0.no_image.jpg',
+                              productTitle: productTitle,
+                              productStatus: item["productStatus"] ?? '상태 없음',
+                              waitingStatus: item["waitingStatus"] ?? '상태 없음',
+                              productPriceKRW: item["priceWon"] ?? '가격없음',
+                              productPriceUSD: item["priceDollar"] ?? '가격없음',
+                              selectedCurrency: selectedCurrency,
+                              onTap: () => _navigateToDescriptionPage(
+                                  item, selectedCurrency),
+                            );
+                          },
+                        );
+                      }
                     },
                   ),
                 ),
-                CommonBottomWidget(),
               ],
             );
           } else {
@@ -261,6 +307,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
+      bottomNavigationBar: CommonBottomWidget(),
     );
   }
 }

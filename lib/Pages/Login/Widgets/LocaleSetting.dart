@@ -269,8 +269,14 @@ class CitySelection extends StatelessWidget {
 
 // 통화 설정 페이지
 class CurrencySetting extends StatelessWidget {
+  final String selectedCity;
+
   CurrencySetting({required this.selectedCity});
-  String selectedCity;
+
+  Future<void> _saveSelectedCurrency(String currency) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedCurrency', currency);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -288,9 +294,11 @@ class CurrencySetting extends StatelessWidget {
     return GenericSettingPage(
       title: '선호 통화 선택',
       items: currencies,
-      nextPageBuilder: (selectedCurrency) => NicknameSetting(
-        selectedCity: selectedCity,
-      ),
+      nextPageBuilder: (selectedCurrency) {
+        _saveSelectedCurrency(
+            selectedCurrency.split(' ')[0]); // Save only 'KRW' or 'USD'
+        return NicknameSetting(selectedCity: selectedCity);
+      },
     );
   }
 }
@@ -305,7 +313,7 @@ class NicknameSetting extends StatefulWidget {
 
 class _NicknameSettingState extends State<NicknameSetting> {
   final TextEditingController _nicknameController = TextEditingController();
-  String _profileImagePath = 'assets/system_images/defaultprofile.jpg';
+  String _profileImagePath = 'assets/images/profile_images/defaultprofile.jpg';
   final ImagePicker _picker = ImagePicker();
 
   @override

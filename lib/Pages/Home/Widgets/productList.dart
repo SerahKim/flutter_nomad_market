@@ -1,40 +1,32 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
-class ProductList extends StatefulWidget {
-  ProductList({
-    required this.nextPage,
-    required this.productThumbnail,
-    required this.productTitle,
-    required this.productStatus,
-    required this.productPrice,
-  });
-
-  final Widget nextPage;
+class ProductList extends StatelessWidget {
   final String productThumbnail;
   final String productTitle;
   final String productStatus;
-  final String productPrice;
+  final String waitingStatus;
+  final String productPriceKRW;
+  final String productPriceUSD;
+  final String selectedCurrency;
+  final VoidCallback onTap;
 
-  @override
-  State<ProductList> createState() => _ProductListState();
-}
+  const ProductList({
+    required this.productThumbnail,
+    required this.productTitle,
+    required this.productStatus,
+    required this.waitingStatus,
+    required this.productPriceKRW,
+    required this.productPriceUSD,
+    required this.selectedCurrency,
+    required this.onTap,
+  });
 
-class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => widget.nextPage,
-            ),
-          );
-        },
+        onTap: onTap, // Use onTap here
         child: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -51,7 +43,7 @@ class _ProductListState extends State<ProductList> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(
-                    widget.productThumbnail,
+                    productThumbnail,
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
@@ -63,7 +55,7 @@ class _ProductListState extends State<ProductList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.productTitle,
+                        productTitle,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -71,18 +63,21 @@ class _ProductListState extends State<ProductList> {
                       ),
                       SizedBox(height: 2),
                       Text(
-                        widget.productStatus,
+                        productStatus,
                         style: TextStyle(
-                            fontSize: 14,
-                            color: widget.productStatus == '판매중'
-                                ? Colors.green
-                                : widget.productStatus == '판매 완료'
-                                    ? Colors.red
-                                    : Colors.black),
+                          fontSize: 14,
+                          color: productStatus == '판매중'
+                              ? Colors.green
+                              : productStatus == '판매 완료'
+                                  ? Colors.red
+                                  : Colors.black,
+                        ),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        widget.productPrice,
+                        selectedCurrency == 'KRW'
+                            ? '₩$productPriceKRW'
+                            : '\$$productPriceUSD',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

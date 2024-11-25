@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatelessWidget {
-  DescriptionPage(
-      {required this.productImage,
-      required this.productTitle,
-      required this.productCategory,
-      required this.productStatus,
-      required this.productPrice,
-      required this.productDescription,
-      required this.priceStatus});
+  DescriptionPage({
+    required this.productImage,
+    required this.productTitle,
+    required this.productCategory,
+    required this.productStatus,
+    required this.waitingStatus,
+    required this.productPriceKRW,
+    required this.productPriceUSD,
+    required this.productDescription,
+    required this.priceStatus,
+    required this.selectedCurrency,
+  });
 
-  final List<dynamic> productImage;
-  final productTitle;
-  final productCategory;
-  final productStatus;
-  final productPrice;
-  final productDescription;
-  final priceStatus;
+  final List productImage;
+  final String productTitle;
+  final String productCategory;
+  final String productStatus;
+  final String waitingStatus;
+  final String productPriceKRW;
+  final String productPriceUSD;
+  final String productDescription;
+  final String priceStatus;
+  final String selectedCurrency;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,7 @@ class DescriptionPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                // 사진
+                // 사진 표시 영역
                 AspectRatio(
                   aspectRatio: 16 / 9,
                   child: PageView.builder(
@@ -41,11 +48,11 @@ class DescriptionPage extends StatelessWidget {
                   ),
                 ),
                 Divider(),
-                //사용자 정보
+                // 사용자 정보 표시
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundImage:
-                        AssetImage('assets/images/defaultprofile.jpg'),
+                    backgroundImage: AssetImage(
+                        'assets/images/profile_images/defaultprofile.jpg'),
                   ),
                   title: Text(
                     '아이디',
@@ -63,13 +70,13 @@ class DescriptionPage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            productTitle,
+                            productTitle, // 상품 제목 표시
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 8),
                           Text(
-                            productStatus,
+                            productStatus, // 상품 상태 표시
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -83,12 +90,12 @@ class DescriptionPage extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        productCategory,
+                        productCategory, // 상품 카테고리 표시
                         style: TextStyle(color: Colors.grey),
                       ),
                       SizedBox(height: 16),
                       Text(
-                        productDescription,
+                        productDescription, // 상품 설명 표시
                         style: TextStyle(fontSize: 16),
                       ),
                       SizedBox(height: 16),
@@ -109,9 +116,13 @@ class DescriptionPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(productPrice,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(
+                        selectedCurrency == 'KRW'
+                            ? '₩$productPriceKRW' // 선택된 통화에 따라 가격 표시 (원화)
+                            : '\$$productPriceUSD', // 선택된 통화에 따라 가격 표시 (달러)
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(height: 4),
                       Row(
                         children: [
@@ -123,7 +134,8 @@ class DescriptionPage extends StatelessWidget {
                                       : Colors.black,
                               size: 20),
                           SizedBox(width: 8),
-                          Text(priceStatus, style: TextStyle(fontSize: 14)),
+                          Text(priceStatus,
+                              style: TextStyle(fontSize: 14)), // 가격 상태 표시
                         ],
                       ),
                     ],
@@ -132,20 +144,18 @@ class DescriptionPage extends StatelessWidget {
                 SizedBox(width: 100),
                 Expanded(
                   child: SizedBox(
-                    height: 50, // 버튼 높이
+                    height: 50, // 버튼 높이 설정
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purple,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.purple, // 버튼 배경색 설정
+                        foregroundColor: Colors.white, // 버튼 글자색 설정
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                            borderRadius:
+                                BorderRadius.circular(10)), // 버튼 모서리 둥글게 설정
                       ),
-                      child: Text(
-                        '채팅하기',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      child: Text('채팅하기',
+                          style: TextStyle(fontSize: 16)), // 버튼 텍스트 설정
                     ),
                   ),
                 ),
