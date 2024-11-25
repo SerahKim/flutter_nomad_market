@@ -1,6 +1,42 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String _profileImagePath = 'assets/system_images/defaultprofile.jpg';
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
+
+  Future<void> _loadProfileImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _profileImagePath = prefs.getString('profile_image') ??
+          'assets/system_images/defaultprofile.jpg';
+    });
+  }
+
+  Future<void> _updateProfileImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('profile_image', image.path);
+      setState(() {
+        _profileImagePath = image.path;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +50,9 @@ class ProfilePage extends StatelessWidget {
           TextButton(
             onPressed: () {
               // 완료 처리 로직
+              Navigator.pop(context);
             },
-            child: Text('완료'),
+            child: Text('완료', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -28,20 +65,28 @@ class ProfilePage extends StatelessWidget {
               child: Stack(
                 children: [
                   CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey[300],
-                    child: Icon(Icons.person, size: 50),
+                    radius: 60,
+                    backgroundImage: _profileImagePath.startsWith('assets/')
+                        ? AssetImage(_profileImagePath) as ImageProvider
+                        : FileImage(File(_profileImagePath)),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        shape: BoxShape.circle,
+                    child: GestureDetector(
+                      onTap: _updateProfileImage,
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
-                      child: Icon(Icons.camera_alt, size: 20),
                     ),
                   ),
                 ],
