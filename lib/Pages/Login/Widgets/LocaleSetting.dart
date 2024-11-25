@@ -193,17 +193,17 @@ class LanguageSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> languages = [
+      {'name': '한국어', 'flag': 'KR'},
       {'name': 'English', 'flag': 'US'},
+      {'name': '日本語', 'flag': 'JP'},
       {'name': '中文', 'flag': 'CN'},
       {'name': 'Español', 'flag': 'ES'},
-      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Français', 'flag': 'FR'},
+      {'name': 'Italiano', 'flag': 'IT'},
+      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Deutsch', 'flag': 'DE'},
-      {'name': '日本語', 'flag': 'JP'},
-      {'name': '한국어', 'flag': 'KR'},
       {'name': 'Português', 'flag': 'PT'},
       {'name': 'Русский', 'flag': 'RU'},
-      {'name': 'Italiano', 'flag': 'IT'},
     ];
 
     return GenericSettingPage(
@@ -223,23 +223,24 @@ class CitySelection extends StatelessWidget {
 
   static List<Map<String, dynamic>> getCities() {
     return [
-      {'name': '런던, 영국', 'flag': 'GB'},
-      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
-      {'name': '이스탄불, 터키', 'flag': 'TR'},
+      {'name': '서울, 대한민국', 'flag': 'KR'},
+      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '파리, 프랑스', 'flag': 'FR'},
+      {'name': '도쿄, 일본', 'flag': 'JP'},
+      {'name': '런던, 영국', 'flag': 'GB'},
+      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
+      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
+      {'name': '이스탄불, 터키', 'flag': 'TR'},
       {'name': '암스테르담, 네덜란드', 'flag': 'NL'},
       {'name': '프랑크푸르트, 독일', 'flag': 'DE'},
-      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '방콕, 태국', 'flag': 'TH'},
+      {'name': '로마, 이탈리아', 'flag': 'IT'},
+      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
       {'name': '싱가포르, 싱가포르', 'flag': 'SG'},
-      {'name': '도쿄, 일본', 'flag': 'JP'},
-      {'name': '서울, 대한민국', 'flag': 'KR'},
       {'name': '홍콩, 중국 특별행정구', 'flag': 'HK'},
       {'name': '시카고, 미국', 'flag': 'US'},
       {'name': '로스앤젤레스, 미국', 'flag': 'US'},
       {'name': '마드리드, 스페인', 'flag': 'ES'},
-      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
-      {'name': '로마, 이탈리아', 'flag': 'IT'},
       {'name': '뮌헨, 독일', 'flag': 'DE'},
       {'name': '상하이, 중국', 'flag': 'CN'},
       {'name': '베이징, 중국', 'flag': 'CN'},
@@ -251,9 +252,13 @@ class CitySelection extends StatelessWidget {
       {'name': '마이애미, 미국', 'flag': 'US'},
       {'name': '샌프란시스코, 미국', 'flag': 'US'},
       {'name': '취리히, 스위스', 'flag': 'CH'},
-      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
       {'name': '비엔나, 오스트리아', 'flag': 'AT'},
     ];
+  }
+
+  static Future<void> saveSelectedCity(String city) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedCity', city);
   }
 
   @override
@@ -264,8 +269,10 @@ class CitySelection extends StatelessWidget {
       title: '도시 선택',
       items: cities,
       initialSelection: selectedCity,
-      nextPageBuilder: (selectedCity) =>
-          CurrencySetting(selectedCity: selectedCity),
+      nextPageBuilder: (selectedCity) {
+        saveSelectedCity(selectedCity); // 선택된 도시 저장
+        return CurrencySetting(selectedCity: selectedCity);
+      },
     );
   }
 }

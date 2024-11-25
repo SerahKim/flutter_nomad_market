@@ -8,6 +8,7 @@ import 'package:flutter_nomad_market/Pages/Home/Widgets/dropdownButton.dart';
 import 'package:flutter_nomad_market/Pages/Home/Widgets/productList.dart';
 import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
+import 'package:flutter_nomad_market/utils/json_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_nomad_market/Pages/Writing/writingPage.dart';
 
@@ -24,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   int currentPage = 0;
   final int itemsPerPage = 20;
-  final ScrollController _scrollController = ScrollController();
   String selectedCity = '';
   List<Map<String, String>> cities = [];
 
@@ -32,17 +32,17 @@ class _HomePageState extends State<HomePage> {
     '전체',
     '전자기기 및 가전',
     '패션 및 액세서리',
+    '명품 및 럭셔리',
+    '공예 및 수공예품',
+    '문화 및 엔터테인먼트',
     '홈 및 리빙',
     '뷰티 및 퍼스널 케어',
     '식품 및 음료',
     '키즈 및 베이비',
     '스포츠 및 아웃도어',
-    '문화 및 엔터테인먼트',
     '반려동물 용품',
     '건강 및 웰빙',
     '자동차 및 오토바이 액세서리',
-    '공예 및 수공예품',
-    '명품 및 럭셔리',
     '서비스',
     '기타',
     '구매요청'
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _loadSelectedCity();
-    _scrollController.addListener(_scrollListener);
+    _loadAllProducts();
   }
 
   void _initializeCities() {
@@ -77,33 +77,27 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       selectedCity = widget.getSelectedCity;
     });
-    await _loadMoreProducts();
+    await _loadAllProducts();
   }
 
-  void _scrollListener() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      _loadMoreProducts();
-    }
-  }
-
-  Future<void> _loadMoreProducts() async {
+  Future<void> _loadAllProducts() async {
     if (isLoading) return;
     setState(() {
       isLoading = true;
     });
 
     try {
-      final newProducts = await loadJsonDataPaginated(
+      final allProducts = await loadJsonData(
         'assets/json/productInfo.json',
         'productInfo',
-        currentPage,
-        itemsPerPage,
         selectedCity,
+        selectedProductCategory,
+        selectedSalesOrPurchaseCategory,
+        selectedWaitingCategory,
       );
+
       setState(() {
-        products.addAll(newProducts);
-        currentPage++;
+        products = allProducts;
         isLoading = false;
       });
     } catch (e) {
@@ -114,25 +108,29 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<List<dynamic>> loadJsonDataPaginated(
+  Future<List<dynamic>> loadJsonData(
     String path,
     String key,
-    int page,
-    int itemsPerPage,
     String selectedCity,
+    String selectedProductCategory,
+    String selectedSalesOrPurchaseCategory,
+    String selectedWaitingCategory,
   ) async {
     final jsonString = await rootBundle.loadString(path);
     final jsonData = json.decode(jsonString);
-    final List<dynamic> allItems = jsonData[key];
+    final List allItems = jsonData[key];
 
-    // 선택된 도시에 해당하는 제품만 필터링
-    final filteredItems =
-        allItems.where((item) => item['selectedCity'] == selectedCity).toList();
-
-    final startIndex = page * itemsPerPage;
-    final endIndex = (page + 1) * itemsPerPage;
-    return filteredItems.sublist(
-        startIndex, endIndex.clamp(0, filteredItems.length));
+    //선택한 필터에 따라 필터링
+    return allItems
+        .where((item) =>
+            item['selectedCity'] == selectedCity &&
+            (selectedProductCategory == '전체' ||
+                item['productCategory'] == selectedProductCategory) &&
+            (selectedSalesOrPurchaseCategory == '전체' ||
+                item['productStatus'] == selectedSalesOrPurchaseCategory) &&
+            (selectedWaitingCategory == '모든 상품' ||
+                item['waitingStatus'] == selectedWaitingCategory))
+        .toList();
   }
 
   String formatPrice(String price, String currency) {
@@ -235,15 +233,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildLoadMoreButton() {
-    return isLoading
-        ? CircularProgressIndicator()
-        : ElevatedButton(
-            onPressed: _loadMoreProducts,
-            child: Text('더 보기'),
-          );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -252,7 +241,7 @@ class _HomePageState extends State<HomePage> {
         leadingWidth: 200,
         leading: Padding(
           padding: const EdgeInsets.only(left: 30),
-          child: PopupMenuButton(
+          child: PopupMenuButton<String>(
             child: Row(
               children: [
                 Expanded(
@@ -268,16 +257,15 @@ class _HomePageState extends State<HomePage> {
             onSelected: (String newCity) async {
               setState(() {
                 selectedCity = newCity;
-                products.clear(); // 기존 상품 목록 초기화
-                currentPage = 0; // 페이지 리셋
+                products.clear();
               });
-              await _loadMoreProducts(); // 새로운 도시에 맞는 상품 로드
+              await _loadAllProducts();
               final prefs = await SharedPreferences.getInstance();
               await prefs.setString('selectedCity', newCity);
             },
             itemBuilder: (BuildContext context) {
-              return cities.map((Map<String, String> city) {
-                return PopupMenuItem(
+              return CitySelection.getCities().map((Map<String, dynamic> city) {
+                return PopupMenuItem<String>(
                   value: city['name'],
                   child: Row(
                     children: [
@@ -320,7 +308,10 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (value) {
                         setState(() {
                           selectedProductCategory = value!;
+                          products.clear();
+                          currentPage = 0;
                         });
+                        _loadAllProducts();
                       },
                     ),
                   ),
@@ -332,7 +323,10 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (value) {
                         setState(() {
                           selectedSalesOrPurchaseCategory = value!;
+                          products.clear();
+                          currentPage = 0;
                         });
+                        _loadAllProducts();
                       },
                     ),
                   ),
@@ -344,7 +338,10 @@ class _HomePageState extends State<HomePage> {
                       onChanged: (value) {
                         setState(() {
                           selectedWaitingCategory = value!;
+                          products.clear();
+                          currentPage = 0;
                         });
+                        _loadAllProducts();
                       },
                     ),
                   ),
@@ -385,7 +382,6 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   final selectedCurrency = currencySnapshot.data!;
                   return ListView.builder(
-                    controller: _scrollController,
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final item = products[index];
