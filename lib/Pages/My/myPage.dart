@@ -3,6 +3,7 @@ import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/profilePage.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/purchaseHistory.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/salesHistory.dart';
+import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -129,42 +130,9 @@ class MyPage extends StatelessWidget {
                 ),
               ),
             ),
-            BottomNavigationWidget(),
+            CommonBottomWidget(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BottomNavigationWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildNavButton(Icons.home, '홈', () {}),
-          _buildNavButton(Icons.chat_bubble_outline, '채팅', () {}),
-          _buildNavButton(Icons.person_outline, '마이페이지', () {}),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavButton(IconData icon, String label, VoidCallback onPressed) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.purple,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon),
-          Text(label),
-        ],
       ),
     );
   }

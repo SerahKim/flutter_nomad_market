@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Pages/Login/loginPage.dart';
+import 'Pages/Home/homePage.dart';
+import 'Pages/Description/descriptionPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(), // LoginPage로 시작
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/description': (context) => DescriptionPage(
+              productData: ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>,
+            ),
+      },
+      home: LoginPage(),
     );
   }
 }
