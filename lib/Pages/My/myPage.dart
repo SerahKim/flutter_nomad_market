@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import 'package:flutter/material.dart';
 import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/profilePage.dart';
@@ -171,4 +169,3 @@ class BottomNavigationWidget extends StatelessWidget {
     );
   }
 }
->>>>>>> Stashed changes
