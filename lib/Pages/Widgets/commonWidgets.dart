@@ -6,36 +6,42 @@ import 'package:flutter_nomad_market/Pages/My/myPage.dart';
 class CommonBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 80,
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildNavButton(context, Icons.home_outlined, '홈', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage(
-                        getSelectedCity: '',
-                      )),
-            );
-          }),
-          _buildNavButton(context, Icons.chat_bubble_outline, '채팅', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChattingListPage()),
-            );
-          }),
-          _buildNavButton(context, Icons.person_outline, '마이페이지', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyPage()),
-            );
-          }),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: double.infinity,
+          height: 80,
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavButton(context, Icons.home, '홈', () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            getSelectedCity: '',
+                          )),
+                );
+              }),
+              _buildNavButton(context, Icons.chat, '채팅', () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChattingListPage()),
+                );
+              }),
+              _buildNavButton(context, Icons.person, '마이페이지', () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyPage()),
+                );
+              }),
+            ],
+          ),
+        ),
+        SizedBox(height: 15),
+      ],
     );
   }
 

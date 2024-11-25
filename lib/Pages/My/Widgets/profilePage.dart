@@ -9,7 +9,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String _profileImagePath = 'assets/system_images/defaultprofile.jpg';
+  String _profileImagePath = 'assets/images/profile_images/defaultprofile.jpg';
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _profileImagePath = prefs.getString('profile_image') ??
-          'assets/system_images/defaultprofile.jpg';
+          'assets/images/profile_images/defaultprofile.jpg';
     });
   }
 
