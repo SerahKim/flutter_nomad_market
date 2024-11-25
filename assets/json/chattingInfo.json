@@ -1,119 +1,404 @@
 {
-    "chatting": [
-      {
-        "userId": "user000001",
-        "nickname": "우수",
-        "profileImage": "/assets/data/users_images/profile_WS.png",
-        "city": {
-          "homeCity": "서울, 대한민국",
-          "selectedCity": "프랑스, 파리",
-          "language": "한국어"
+  "chattingInfo": [
+    {
+      "chatId": "chat001",
+      "postId": "post000002",
+      "sellerId": "user000001",
+      "buyerId": "user000002",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000002",
+          "content": "안녕하세요, 미놀타 필름카메라 아직 판매중인가요?",
+          "timestamp": "2024-02-26T14:25:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000001", "post000002", "post000005", "post000010", "post000013", "post000016", "post000026", "post000030", "post000031", "post000032"],
-          "sold": ["post000004", "post000005"],
-          "purchased": ["post000006"]
+        {
+          "messageId": "msg002",
+          "senderId": "user000001",
+          "content": "네, 아직 판매중입니다!",
+          "timestamp": "2024-02-26T14:26:00Z",
+          "isRead": true
         },
-        "wishlist": ["post000003", "post000019"],
-        "chatRooms": ["chat001", "chat002", "chat003"],
-        "rating": 4.8,
-        "joinDate": "2023-12-01T00:00:00Z", 
-        "lastActive": "2024-02-22T16:30:00Z"
-      },
-      {
-        "userId": "user000002",
-        "nickname": "시은",
-        "profileImage": "/assets/data/users_images/profile_SE.jpeg",
-        "preferences": {
-          "country": "서울, 대한민국",
-          "language": "한국어"
+        {
+          "messageId": "msg003",
+          "senderId": "user000002",
+          "content": "카메라 상태는 어떤가요? 플래시랑 타이머 정상 작동되나요?",
+          "timestamp": "2024-02-26T14:27:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000003", "post000004", "post000006", "post000007", "post000008", "post000009", "post000015", "post000019", "post000022", "post000024", "post000027", "post000033", "post000039"],
-          "sold": ["post000017"],
-          "purchased": ["post000008", "post000009"]
+        {
+          "messageId": "msg004",
+          "senderId": "user000001",
+          "content": "네, 모두 정상 작동되고 렌즈 상태도 깨끗합니다. 케이스와 커버도 함께 드려요.",
+          "timestamp": "2024-02-26T14:28:00Z",
+          "isRead": true
         },
-        "wishlist": ["post000001", "post000002"],
-        "chatRooms": ["chat004", "chat005"],
-        "rating": 4.3,
-        "joinDate": "2024-01-15T00:00:00Z",
-        "lastActive": "2024-02-22T14:20:00Z"
-      },
-      {
-        "userId": "user000003",
-        "nickname": "승준",
-        "profileImage": "/assets/data/users_images/profile_WJ.jpeg",
-        "preferences": {
-          "country": "서울, 대한민국",
-          "language": "한국어"
+        {
+          "messageId": "msg005",
+          "senderId": "user000002",
+          "content": "거래 가능한 시간과 장소 정해주시면 좋을 것 같아요!",
+          "timestamp": "2024-02-26T14:29:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000011", "post000012", "post000014", "post000020", "post000021", "post000023", "post000025", "post000028", "post000029", "post000034", "post000035", "post000036", "post000037", "post000038", "post000040", "post000041", "post000042", "post000043", "post000044"],
-          "sold": [],
-          "purchased": []
+        {
+          "messageId": "msg006",
+          "senderId": "user000001",
+          "content": "내일 저녁 6시에 홍대입구역 2번 출구 어떠신가요?",
+          "timestamp": "2024-02-26T14:30:00Z",
+          "isRead": true
         },
-        "wishlist": [],
-        "chatRooms": ["chat006"],
-        "rating": 4.5,
-        "joinDate": "2024-02-01T00:00:00Z",
-        "lastActive": "2024-02-22T12:10:00Z"
-      },
-      {
-        "userId": "user000004",
-        "nickname": "Chris",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
+        {
+          "messageId": "msg007",
+          "senderId": "user000002",
+          "content": "네, 좋습니다! 그럼 내일 뵐게요 😊",
+          "timestamp": "2024-02-26T14:31:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat002",
+      "postId": "post000001",
+      "sellerId": "user000001",
+      "buyerId": "user000003",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000003",
+          "content": "안녕하세요, 맥북에어 m2 아직 판매중이신가요?",
+          "timestamp": "2024-02-26T15:25:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000045", "post000046", "post000047"],
-          "sold": [],
-          "purchased": []
+        {
+          "messageId": "msg002",
+          "senderId": "user000001",
+          "content": "네, 아직 판매중입니다!",
+          "timestamp": "2024-02-26T15:26:00Z",
+          "isRead": true
         },
-        "wishlist": ["post000048", "post000049"],
-        "chatRooms": ["chat007", "chat008"],
-        "rating": 4.9,
-        "joinDate": "2023-01-01T00:00:00Z",
-        "lastActive": "2024-02-01T00:00:00Z"
-      },
-      {
-        "userId": "user000005",
-        "nickname": "David",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
+        {
+          "messageId": "msg003",
+          "senderId": "user000003",
+          "content": "배터리 성능이 95%라고 하셨는데, 충전 횟수는 어떻게 되나요?",
+          "timestamp": "2024-02-26T15:27:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000048", "post000049"],
-          "sold": [],
-          "purchased": ["post000046"]
+        {
+          "messageId": "msg004",
+          "senderId": "user000001",
+          "content": "약 150회 정도입니다. 거의 사용하지 않아서 상태가 매우 좋습니다.",
+          "timestamp": "2024-02-26T15:28:00Z",
+          "isRead": true
         },
-        "wishlist": ["post000045"],
-        "chatRooms": ["chat009"],
-        "rating": 4.8,
-        "joinDate": "2023-06-01T00:00:00Z",
-        "lastActive": "2024-01-22T10:10:00Z"
-      },
-      {
-        "userId": "user000006",
-        "nickname": "Emily",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
+        {
+          "messageId": "msg005",
+          "senderId": "user000003",
+          "content": "네, 확인 감사합니다. 직거래 가능하신가요?",
+          "timestamp": "2024-02-26T15:29:00Z",
+          "isRead": true
         },
-        "posts": {
-          "selling": ["post000050", "post000051"],
-          "sold": [],
-          "purchased": ["post000047"]
+        {
+          "messageId": "msg006",
+          "senderId": "user000001",
+          "content": "강남역에서 직거래 가능합니다. 이번 주말 어떠신가요?",
+          "timestamp": "2024-02-26T15:30:00Z",
+          "isRead": true
         },
-        "wishlist": ["post000046"],
-        "chatRooms": ["chat010", "chat011"],
-        "rating": 4.5,
-        "joinDate": "2023-03-01T00:00:00Z",
-        "lastActive": "2024-02-01T12:30:00Z"
-      }
-    ]
-  }
+        {
+          "messageId": "msg007",
+          "senderId": "user000003",
+          "content": "주말에 시간이 안될 것 같은데, 평일 저녁은 어떠신가요?",
+          "timestamp": "2024-02-26T15:31:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat003",
+      "postId": "post000010",
+      "sellerId": "user000001",
+      "buyerId": "user000004",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000004",
+          "content": "안녕하세요, 소니 헤드셋 아직 판매중이신가요?",
+          "timestamp": "2024-02-26T16:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000001",
+          "content": "네, 판매중입니다!",
+          "timestamp": "2024-02-26T16:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000004",
+          "content": "배터리 성능은 어떤가요? 노이즈캔슬링도 잘 되나요?",
+          "timestamp": "2024-02-26T16:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000001",
+          "content": "배터리는 한번 충전에 약 25시간 정도 사용 가능하고, 노이즈캔슬링 기능도 정상 작동합니다.",
+          "timestamp": "2024-02-26T16:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000004",
+          "content": "직거래 가능하신가요?",
+          "timestamp": "2024-02-26T16:29:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg006",
+          "senderId": "user000001",
+          "content": "네, 신촌역에서 직거래 가능합니다. 시간은 언제가 괜찮으신가요?",
+          "timestamp": "2024-02-26T16:30:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg007",
+          "senderId": "user000004",
+          "content": "내일 오후 3시에 신촌역 1번 출구 어떠신가요?",
+          "timestamp": "2024-02-26T16:31:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat004",
+      "postId": "post000003",
+      "sellerId": "user000002",
+      "buyerId": "user000005",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000005",
+          "content": "안녕하세요, BALLY 서류가방 아직 판매중이신가요?",
+          "timestamp": "2024-02-26T17:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000002",
+          "content": "네, 아직 판매중입니다!",
+          "timestamp": "2024-02-26T17:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000005",
+          "content": "실제 보관용량이 어느 정도인가요? 노트북도 들어갈까요?",
+          "timestamp": "2024-02-26T17:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000002",
+          "content": "13인치 노트북까지 충분히 수납 가능합니다. A4 서류와 노트북, 기타 소지품을 넣어도 여유가 있어요.",
+          "timestamp": "2024-02-26T17:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000005",
+          "content": "가격 네고 가능할까요?",
+          "timestamp": "2024-02-26T17:29:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg006",
+          "senderId": "user000002",
+          "content": "죄송하지만 가격 제안은 어렵습니다. 새상품이라 정가로만 판매하고 있어요.",
+          "timestamp": "2024-02-26T17:30:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg007",
+          "senderId": "user000005",
+          "content": "알겠습니다. 더 고민해보고 연락드리겠습니다.",
+          "timestamp": "2024-02-26T17:31:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat005",
+      "postId": "post000015",
+      "sellerId": "user000002",
+      "buyerId": "user000001",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000001",
+          "content": "안녕하세요, 나전칠기 보석함 아직 판매중이신가요?",
+          "timestamp": "2024-02-26T18:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000002",
+          "content": "네, 아직 판매중입니다!",
+          "timestamp": "2024-02-26T18:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000001",
+          "content": "실제 크기는 어느 정도인가요?",
+          "timestamp": "2024-02-26T18:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000002",
+          "content": "가로 15cm, 세로 10cm, 높이 5cm 정도입니다. 작은 악세서리 보관하기 좋은 크기에요.",
+          "timestamp": "2024-02-26T18:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000001",
+          "content": "네고 가능할까요?",
+          "timestamp": "2024-02-26T18:29:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat006",
+      "postId": "post000020",
+      "sellerId": "user000003",
+      "buyerId": "user000001",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000001",
+          "content": "아식스 운동화 235 사이즈 맞나요?",
+          "timestamp": "2024-02-26T19:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000003",
+          "content": "네, 정확히 235 사이즈입니다.",
+          "timestamp": "2024-02-26T19:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000001",
+          "content": "직거래 가능하신가요?",
+          "timestamp": "2024-02-26T19:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000003",
+          "content": "강남역에서 직거래 가능합니다.",
+          "timestamp": "2024-02-26T19:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000001",
+          "content": "내일 저녁 7시 어떠신가요?",
+          "timestamp": "2024-02-26T19:29:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat007",
+      "postId": "post000045",
+      "sellerId": "user000007",
+      "buyerId": "user000001",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000001",
+          "content": "Hi, is the MacBook Air M1 still available?",
+          "timestamp": "2024-02-26T20:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000007",
+          "content": "Yes, it's still available!",
+          "timestamp": "2024-02-26T20:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000001",
+          "content": "What's the battery cycle count?",
+          "timestamp": "2024-02-26T20:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000007",
+          "content": "It has 85 battery cycles and 95% battery health.",
+          "timestamp": "2024-02-26T20:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000001",
+          "content": "Can we meet at Manhattan tomorrow?",
+          "timestamp": "2024-02-26T20:29:00Z",
+          "isRead": false
+        }
+      ]
+    },
+    {
+      "chatId": "chat008",
+      "postId": "post000048",
+      "sellerId": "user000008",
+      "buyerId": "user000001",
+      "messages": [
+        {
+          "messageId": "msg001",
+          "senderId": "user000001",
+          "content": "Hello, I'm interested in your iPad Pro. Is it still for sale?",
+          "timestamp": "2024-02-26T21:25:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg002",
+          "senderId": "user000008",
+          "content": "Yes, it's available. It's in perfect condition.",
+          "timestamp": "2024-02-26T21:26:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg003",
+          "senderId": "user000001",
+          "content": "Does it come with the Apple Pencil?",
+          "timestamp": "2024-02-26T21:27:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg004",
+          "senderId": "user000008",
+          "content": "Yes, Apple Pencil 2nd gen is included in the price.",
+          "timestamp": "2024-02-26T21:28:00Z",
+          "isRead": true
+        },
+        {
+          "messageId": "msg005",
+          "senderId": "user000001",
+          "content": "Great! Is the price negotiable?",
+          "timestamp": "2024-02-26T21:29:00Z",
+          "isRead": false
+        }
+      ]
+    }
+  ]
+}
