@@ -1,119 +1,204 @@
 {
-    "users": [
-      {
-        "userId": "user000001",
-        "nickname": "우수",
-        "profileImage": "/assets/data/users_images/profile_WS.png",
-        "city": {
-          "homeCity": "서울, 대한민국",
-          "selectedCity": "프랑스, 파리",
-          "language": "한국어"
-        },
-        "posts": {
-          "selling": ["post000001", "post000002", "post000005", "post000010", "post000013", "post000016", "post000026", "post000030", "post000031", "post000032"],
-          "sold": ["post000004", "post000005"],
-          "purchased": ["post000006"]
-        },
-        "wishlist": ["post000003", "post000019"],
-        "chatRooms": ["chat001", "chat002", "chat003"],
-        "rating": 4.8,
-        "joinDate": "2023-12-01T00:00:00Z", 
-        "lastActive": "2024-02-22T16:30:00Z"
+  "userInfo": [
+    {
+      "userId": "user000001",
+      "nickname": "우수",
+      "profileImage": "assets/images/users_images/profile_WS.png",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
       },
-      {
-        "userId": "user000002",
-        "nickname": "시은",
-        "profileImage": "/assets/data/users_images/profile_SE.jpeg",
-        "preferences": {
-          "country": "서울, 대한민국",
-          "language": "한국어"
-        },
-        "posts": {
-          "selling": ["post000003", "post000004", "post000006", "post000007", "post000008", "post000009", "post000015", "post000019", "post000022", "post000024", "post000027", "post000033", "post000039"],
-          "sold": ["post000017"],
-          "purchased": ["post000008", "post000009"]
-        },
-        "wishlist": ["post000001", "post000002"],
-        "chatRooms": ["chat004", "chat005"],
-        "rating": 4.3,
-        "joinDate": "2024-01-15T00:00:00Z",
-        "lastActive": "2024-02-22T14:20:00Z"
+      "posts": {
+        "selling": ["post000001", "post000002", "post000010", "post000013", "post000016", "post000018", "post000026", "post000032"],
+        "sold": ["post000005"],
+        "purchase": ["post000030", "post000031"],
+        "purchased": []
       },
-      {
-        "userId": "user000003",
-        "nickname": "승준",
-        "profileImage": "/assets/data/users_images/profile_WJ.jpeg",
-        "preferences": {
-          "country": "서울, 대한민국",
-          "language": "한국어"
-        },
-        "posts": {
-          "selling": ["post000011", "post000012", "post000014", "post000020", "post000021", "post000023", "post000025", "post000028", "post000029", "post000034", "post000035", "post000036", "post000037", "post000038", "post000040", "post000041", "post000042", "post000043", "post000044"],
-          "sold": [],
-          "purchased": []
-        },
-        "wishlist": [],
-        "chatRooms": ["chat006"],
-        "rating": 4.5,
-        "joinDate": "2024-02-01T00:00:00Z",
-        "lastActive": "2024-02-22T12:10:00Z"
+      "wishlist": [],
+      "chatRooms": ["chat001", "chat002", "chat003", "chat005", "chat006", "chat007", "chat008"],
+      "rating": 4.8,
+      "joinDate": "2023-12-01T00:00:00Z",
+      "lastActive": "2024-02-26T21:29:00Z"
+    },
+    {
+      "userId": "user000002",
+      "nickname": "시은",
+      "profileImage": "assets/images/users_images/profile_SE.jpeg",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
       },
-      {
-        "userId": "user000004",
-        "nickname": "Chris",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
-        },
-        "posts": {
-          "selling": ["post000045", "post000046", "post000047"],
-          "sold": [],
-          "purchased": []
-        },
-        "wishlist": ["post000048", "post000049"],
-        "chatRooms": ["chat007", "chat008"],
-        "rating": 4.9,
-        "joinDate": "2023-01-01T00:00:00Z",
-        "lastActive": "2024-02-01T00:00:00Z"
+      "posts": {
+        "selling": ["post000003", "post000004", "post000006", "post000007", "post000008", "post000009", "post000015", "post000019", "post000022", "post000024", "post000027", "post000033"],
+        "sold": ["post000017"],
+        "purchase": ["post000039"],
+        "purchased": []
       },
-      {
-        "userId": "user000005",
-        "nickname": "David",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
-        },
-        "posts": {
-          "selling": ["post000048", "post000049"],
-          "sold": [],
-          "purchased": ["post000046"]
-        },
-        "wishlist": ["post000045"],
-        "chatRooms": ["chat009"],
-        "rating": 4.8,
-        "joinDate": "2023-06-01T00:00:00Z",
-        "lastActive": "2024-01-22T10:10:00Z"
+      "wishlist": [],
+      "chatRooms": ["chat001", "chat004", "chat005"],
+      "rating": 4.3,
+      "joinDate": "2024-01-15T00:00:00Z",
+      "lastActive": "2024-02-26T18:29:00Z"
+    },
+    {
+      "userId": "user000003",
+      "nickname": "승준",
+      "profileImage": "assets/images/users_images/profile_SJ.jpeg",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
       },
-      {
-        "userId": "user000006",
-        "nickname": "Emily",
-        "profileImage": "/assets/system_images/defaultprofile.jpg",
-        "preferences": {
-          "country": "뉴욕, 미국",
-          "language": "English"
-        },
-        "posts": {
-          "selling": ["post000050", "post000051"],
-          "sold": [],
-          "purchased": ["post000047"]
-        },
-        "wishlist": ["post000046"],
-        "chatRooms": ["chat010", "chat011"],
-        "rating": 4.5,
-        "joinDate": "2023-03-01T00:00:00Z",
-        "lastActive": "2024-02-01T12:30:00Z"
-      }
-    ]
-  }
+      "posts": {
+        "selling": ["post000011", "post000012", "post000014", "post000020", "post000021", "post000023", "post000025", "post000028", "post000029", "post000035", "post000036", "post000042", "post000043"],
+        "sold": ["post000044"],
+        "purchase": ["post000037", "post000038", "post000040", "post000041"],
+        "purchased": ["post000034"]
+      },
+      "wishlist": [],
+      "chatRooms": ["chat002", "chat006"],
+      "rating": 4.5,
+      "joinDate": "2024-02-01T00:00:00Z",
+      "lastActive": "2024-02-26T19:29:00Z"
+    },
+    {
+      "userId": "user000004",
+      "nickname": "user4",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
+      },
+      "posts": {
+        "selling": [],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": ["chat003"],
+      "rating": 4.8,
+      "joinDate": "2023-12-01T00:00:00Z",
+      "lastActive": "2024-02-26T16:31:00Z"
+    },
+    {
+      "userId": "user000005",
+      "nickname": "user5",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
+      },
+      "posts": {
+        "selling": [],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": [],
+      "rating": 4.3,
+      "joinDate": "2024-01-15T00:00:00Z",
+      "lastActive": null
+    },
+    {
+      "userId": "user000006",
+      "nickname": "user6",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "서울, 대한민국",
+        "language": "한국어"
+      },
+      "posts": {
+        "selling": [],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": [],
+      "rating": 4.5,
+      "joinDate": "2024-02-01T00:00:00Z",
+      "lastActive": "2024-02-26T17:31:00Z"
+    },
+    {
+      "userId": "user000007",
+      "nickname": "Chris",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "뉴욕, 미국",
+        "language": "English"
+      },
+      "posts": {
+        "selling": ["post000045", "post000046", "post000047"],
+        "sold": ["post000049"],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": ["chat007"],
+      "rating": 4.9,
+      "joinDate": "2023-01-01T00:00:00Z",
+      "lastActive": "2024-02-26T20:28:00Z"
+    },
+    {
+      "userId": "user000008",
+      "nickname": "David",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "뉴욕, 미국",
+        "language": "English"
+      },
+      "posts": {
+        "selling": ["post000048"],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": ["chat008"],
+      "rating": 4.8,
+      "joinDate": "2023-06-01T00:00:00Z",
+      "lastActive": "2024-02-26T21:28:00Z"
+    },
+    {
+      "userId": "user000009",
+      "nickname": "Emily",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "뉴욕, 미국",
+        "language": "English"
+      },
+      "posts": {
+        "selling": [],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": [],
+      "rating": 4.5,
+      "joinDate": "2023-03-01T00:00:00Z",
+      "lastActive": "2024-02-26T21:28:00Z"
+    },
+    {
+      "userId": "user000010",
+      "nickname": "user10",
+      "profileImage": "assets/system_images/defaultprofile.jpg",
+      "preferences": {
+        "homeCity": "뉴욕, 미국",
+        "language": "English"
+      },
+      "posts": {
+        "selling": [],
+        "sold": [],
+        "purchase": [],
+        "purchased": []
+      },
+      "wishlist": [],
+      "chatRooms": [],
+      "rating": 4.9,
+      "joinDate": "2023-01-01T00:00:00Z",
+      "lastActive": "2024-02-26T21:28:00Z"
+    }
+  ]
+}
