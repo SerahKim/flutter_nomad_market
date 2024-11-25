@@ -17,12 +17,14 @@ class CommonBottomWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildNavButton(context, Icons.home, '홈', () {
-                Navigator.push(
+                Navigator.pushReplacement(
+                  //Navigator.push를 Navigator.pushReplacement로 변경 현재 페이지를 새로운 HomePage로 교체하는 방법으로 페이지 이동 오류 해결하고 스택에 불필요한 페이지가 쌓이는 것을 방지
                   context,
                   MaterialPageRoute(
-                      builder: (context) => HomePage(
-                            getSelectedCity: '',
-                          )),
+                    builder: (context) => HomePage(
+                      getSelectedCity: '',
+                    ),
+                  ),
                 );
               }),
               _buildNavButton(context, Icons.chat, '채팅', () {

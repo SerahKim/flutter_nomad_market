@@ -11,6 +11,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "맥북에어 m2 13인치 실버\\n8\/256 기본형입니다.\\n배터리성능 95%\\n외관 기스, 찍힘 없고 깔끔합니다.",
+        "thumbnailImage": "assets/images/product_images/1.Macbookair_1.webp",
         "images": [
           "assets/images/product_images/1.Macbookair_1.webp",
           "assets/images/product_images/1.Macbookair_2.webp",
@@ -37,6 +38,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "필름 카메라 미놀타 하이메틱s 입니다.\n카메라 렌즈 커버랑 카메라 케이스까지 모두 드립니다.\n\n목측식 카메라로 직접 초점을 맞추면 사진을 찍는 재미가 있는 필름카메라입니다.\n상태는 양호하고 플래시, 타이머 다이얼 모두 정상작동합니다.\n\n뒤에 사진들은 제가 직접 미놀타 하이메틱s로 촬영한 사진들입니다.",
+        "thumbnailImage": "assets/images/product_images/2.Minolta_1.webp",
         "images": [
           "assets/images/product_images/2.Minolta_1.webp",
           "assets/images/product_images/2.Minolta_2.webp",
@@ -64,6 +66,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "최근에 지인으로부터 선물받은 제품입니다\n같은 메이커에 비슷한 제품을 사용중이라\n판매하고자 합니다\n완전 새제품이구요, 보증서도 있습니다",
+        "thumbnailImage": "assets/images/product_images/3.Bally_1.webp",
         "images": [
           "assets/images/product_images/3.Bally_1.webp",
           "assets/images/product_images/3.Bally_2.webp",
@@ -88,6 +91,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "숨 화장품 에센스 판매합니다.\n숨마 엘릭서 에센스 60ml\n새상품\n사용기한 2026.08월입니다.\n매장판매가 16만원 입니다.",
+        "thumbnailImage": "assets/images/product_images/4.Sum_1.jpeg",
         "images": [
           "assets/images/product_images/4.Sum_1.jpeg",
           "assets/images/product_images/4.Sum_2.jpeg",
@@ -110,6 +114,7 @@
         "waitingStatus": "거래완료",
         "priceStatus": "가격제안 가능",
         "decription": "기스 아예 없으며 박스 함께 드립니다.\n고장난 것 없고 배터리 성능 약 79%입니다.\nC to 라이트닝 충전기선 함께 동봉되어 있습니다.\n필요시 말씀주시면 맥세이프 실리콘 레드 정품 케이스도 함께 드립니다.",
+        "thumbnailImage": "assets/images/product_images/5.iPhone12_1.webp",
         "images": [
           "assets/images/product_images/5.iPhone12_1.webp",
           "assets/images/product_images/5.iPhone12_2.webp",
@@ -136,6 +141,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "245 사이즈인 저에게는 벗겨져서 안되겠네요\n가격 네고 가능하니 문의 주세요",
+        "thumbnailImage": "assets/images/product_images/6.Prada_1.webp",
         "images": [
           "assets/images/product_images/6.Prada_1.webp",
           "assets/images/product_images/6.Prada_2.webp"
@@ -156,6 +162,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "미개봉 새제품\n\n사용기한 27.08.20",
+        "thumbnailImage": "assets/images/product_images/7.Sunscreen_1.webp",
         "images": [
           "assets/images/product_images/7.Sunscreen_1.webp",
           "assets/images/product_images/7.Sunscreen_2.webp",
@@ -177,6 +184,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "미개봉 새상품입니다\n\n사용기한 2027년 3월 14일까지",
+        "thumbnailImage": "assets/images/product_images/8.Manyo_1.webp",
         "images":[
           "assets/images/product_images/8.Manyo_1.webp",
           "assets/images/product_images/8.Manyo_2.webp",
@@ -199,6 +207,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "닥터자르트 시카페어 젤크림 팝니다\n\n새제품이에요!",
+        "thumbnailImage": "assets/images/product_images/9.DrJart_1.webp",
         "images": [
           "assets/images/product_images/9.DrJart_1.webp",
           "assets/images/product_images/9.DrJart_2.webp",
@@ -219,6 +228,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "예전에 중고로 구매하고 한번 사용하고 사용한적없습니다. 생활기스가 약간 있지만 눈에 띄지 않습니다.\n\n기능상 문제 없습니다. 박스 찾아보고 있으면 같이 드릴게요~",
+        "thumbnailImage": "assets/images/product_images/10.Sonyheadphone_1.webp",
         "images": [
           "assets/images/product_images/10.Sonyheadphone_1.webp"
           ],
@@ -238,6 +248,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "22년도 9월에 산 맥북에어 M2입니다\n사용 거의 안하고 케이스에 넣고만 있어서\n판매하게 됐습니다\n상태 최상입니다\n찍힘, 기스 등 외관상 문제 일절 없습니다",
+        "thumbnailImage": "assets/images/product_images/11.Macbookair2_1.webp",
         "images": [
           "assets/images/product_images/11.Macbookair2_1.webp",
           "assets/images/product_images/11.Macbookair2_2.webp",
@@ -261,6 +272,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "잘 사용하다 무거워서 팝니다..\n256GB 외관 깨끗하고 박스 같이 드릴수 있습니다\n보호필름 붙이면 깔끔한데 액정에 생활기스 조금 있어요",
+        "thumbnailImage": "assets/images/product_images/12.iPhone14max_1.webp",
         "images": [
           "assets/images/product_images/12.iPhone14max_1.webp",
           "assets/images/product_images/12.iPhone14max_2.webp",
@@ -286,6 +298,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "애플워치 se2 44미리 셀룰러 와이파이 겸용 모델입니다 실사용 많이 안했고\n기스없이 깨끗합니다 정품스트랩 미사용 배터리성능98",
+        "thumbnailImage": "assets/images/product_images/13.AppleWatch_1.webp",
         "images": [
           "assets/images/product_images/13.AppleWatch_1.webp",
           "assets/images/product_images/13.AppleWatch_2.webp",
@@ -309,6 +322,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "갤럭시 버즈2 미개봉 새상품 팔아요!\n색상은 그라파이트 색상입니다",
+        "thumbnailImage": "assets/images/product_images/14.GalaxyBuds_1.webp",
         "images": [
           "assets/images/product_images/14.GalaxyBuds_1.webp",
           "assets/images/product_images/14.GalaxyBuds_2.webp"
@@ -329,6 +343,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "선물용으로 몇개 맞췄는데 하나 남아 저렴히 팔아요\n명절 선물, 외국인 선물로도 고급진 작품입니다",
+        "thumbnailImage": "assets/images/product_images/15.Lacquareware_1.webp",
         "images": [
           "assets/images/product_images/15.Lacquareware_1.webp",
           "assets/images/product_images/15.Lacquareware_2.webp",
@@ -354,7 +369,10 @@
         "productStatus": "팝니다",
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
-        "decription": [
+        "decription": "개당 6,000원\n 일괄 시 11,000원\n 숱 적으신 분은 플라스틱이 아니라 아플 수 있어서 머리 숱 많으신 분 추천해요!\n 개당 만원 후반대에 산 건데, 사용감 있어 저렴히 올려요, 예민하신 준 패스해 주세요",
+        "thumbnailImage": "assets/images/product_images/16.Lacquarewareacc_1.webp",
+        "images":
+        [
           "assets/images/product_images/16.Lacquarewareacc_1.webp",
           "assets/images/product_images/16.Lacquarewareacc_2.webp"
           ],
@@ -374,6 +392,7 @@
         "waitingStatus": "거래완료",
         "priceStatus": "가격제안 가능",
         "decription": "육각형 스타일. 지름 22. 높이 19 팝니다",
+        "thumbnailImage": "assets/images/product_images/17.Lacquarewarebox_1.webp",
         "images": [
           "assets/images/product_images/17.Lacquarewarebox_1.webp",
           "assets/images/product_images/17.Lacquarewarebox_2.webp",
@@ -395,6 +414,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "브릭링크로 펀딩으로 구매한 레고 한정판\n<오래된 기관차 엔진 창고>입니다.\n910033 Old Train Engine Shed\nMISB 씰 미개봉 상태입니다.\n카툰박스 있습니다.",
+        "thumbnailImage": "assets/images/product_images/18.LegoLimited_1.webp",
         "images": [
           "assets/images/product_images/18.LegoLimited_1.webp",
           "assets/images/product_images/18.LegoLimited_2.webp",
@@ -420,6 +440,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "긴자식스에서 구입한 도쿄 한정판\n구입후 한번도 사용한적 없어요\n3백만원 초반대가격에 구입했어요\n크로스로 멜수있는 끈도 있어요\n빨간색 손잡이와 크로스끈이 포인트라 예쁘고 고급스러워요\n케이스 보증서를 버려서 저렴하게 내놓습니다",
+        "thumbnailImage": "assets/images/product_images/19.GucciLimited_1.webp",
         "images": [
           "assets/images/product_images/19.GucciLimited_1.webp",
           "assets/images/product_images/19.GucciLimited_2.webp",
@@ -447,6 +468,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "택배 그대로 미개봉 새상품 입니다\n사이즈 235\n공홈 당첨 상품 입니다",
+        "thumbnailImage": "assets/images/product_images/20.AsicsUnlimited_1.webp",
         "images":[
           "assets/images/product_images/20.AsicsUnlimited_1.webp",
           "assets/images/product_images/20.AsicsUnlimited_2.webp"
@@ -467,6 +489,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "4월 일본 여행중 구매 했으며 여행 중에 딱 한번 들었습니다.\n상태 그냥 새것같이 좋아요!\n핑크색 잘 안사는데 이 가방은 다른 컬러들보다 핑크가 너무 예뻤어요\n핑크는 한국에 안나왔고 해외(일본)에만 있는걸로 알아요",
+        "thumbnailImage": "assets/images/product_images/21.PumaLimited_1.webp",
         "images": [
           "assets/images/product_images/21.PumaLimited_1.webp",
           "assets/images/product_images/21.PumaLimited_2.webp",
@@ -494,6 +517,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "찰리푸스 싱가폴 콘서트 티켓 판매합니다\n엄청 기대했지만 갑자기 일이 생겨서 못가게 되서 판매합니다 ㅠㅠ\n좌석은 프리미어 좌석입니다!",
+        "thumbnailImage": "assets/images/product_images/22.CharliePuth_1.webp",
         "images":  [
           "assets/images/product_images/22.CharliePuth_1.webp"
         ],
@@ -512,6 +536,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "올해 1월 여주 프리미엄 아울렛 페라가모 매장에서 구매한 로퍼입니다.\n기본 클래식 로퍼로 페라가모 그 자체라고도 할 수 있는 Ayden 시리즈 입니다.\n마지막 남은 한켤레를 약 35만원에 할인 판매 해서 눈이 돌아간 나머지 맞지 않는 사이즈 임에도 구매 했고, 정확히 2번 신고 포기했습니다.",
+        "thumbnailImage": "assets/images/product_images/23.Loafer_1.webp",
         "images":  [
           "assets/images/product_images/23.Loafer_1.webp",
           "assets/images/product_images/23.Loafer_2.webp",
@@ -538,6 +563,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "하와이에서 사왔는데 사이즈 실패로 선물을 못하네요\n저는 이제 룰루 운동화만 신기로 했어요 너무 편해요\n완전 강추해요\n한국 미수입 운동화로 추천해요",
+        "thumbnailImage": "assets/images/product_images/24.Lululemon_1.webp",
         "images":   [
           "assets/images/product_images/24.Lululemon_1.webp",
           "assets/images/product_images/24.Lululemon_2.webp",
@@ -561,6 +587,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "말본 미국에서 직접 구매한 골프화입니다 :D\n말본X뉴발란스 콜라보제품이고요\n한번도 사용하지 않은 새제품입니다\n미국에서 배송비까지 약 25만원정도로 구매했고요, 새상품 저렴하게 판매합니다\n최근에 다른 골프화를 선물받아서, 제가 필요가 없게되어서요\n골프화 엄청 이쁘고요, 저렴하게 득템하세요",
+        "thumbnailImage": "assets/images/product_images/25.MALBON_1.webp",
         "images":[
           "assets/images/product_images/25.MALBON_1.webp"
         ],
@@ -580,6 +607,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "애플펜슬 type-C 에요.\n사용을 거의 안해서 상태 좋습니다.",
+        "thumbnailImage": "assets/images/product_images/26.ApplePencil_1.webp",
         "images":  [
           "assets/images/product_images/26.ApplePencil_1.webp",
           "assets/images/product_images/26.ApplePencil_2.webp",
@@ -602,6 +630,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "풀박스이고 상태 좋아요\n10회 미만 사용입니다\n귀찮아서 안쓰다가 아까워서 팔아요",
+        "thumbnailImage": "assets/images/product_images/27.MedicubeAgeR_1.webp",
         "images":   [
           "assets/images/product_images/27.MedicubeAgeR_1.webp",
           "assets/images/product_images/27.MedicubeAgeR_2.webp"
@@ -622,6 +651,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "더스트, 구찌 반지박스, 2019년 구매도장 함께 보관중입니당\n사이즈 10호입니다\n제가 물건을 워낙 깔끔하게 사용하는 편이라\n크게 하자라고 할 부분은 없지만\n5년 정도 착용하거나 개봉해서 보관해왔기때문에\n전체적으로 생활기스 등은 있어요.",
+        "thumbnailImage": "assets/images/product_images/28.GucciRing_1.webp",
         "images":  [
           "assets/images/product_images/28.GucciRing_1.webp",
           "assets/images/product_images/28.GucciRing_2.webp",
@@ -647,6 +677,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "새상품급 입니다. 2회 사용 한 제품 입니다\n구섬품 : 고글2 본체, 모션컨트롤러, 배터리1개 등\n호환되는 DJI 드론 많은거 같네요",
+        "thumbnailImage": "assets/images/product_images/29.DJIGoggle_1.webp",
         "images":  [
           "assets/images/product_images/29.DJIGoggle_1.webp",
           "assets/images/product_images/29.DJIGoggle_2.webp",
@@ -670,6 +701,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "아이폰 7이나 8 삽니다\n상태 좋았으면 좋겠고 많이 제안해주세요",
+        "thumbnailImage": "assets/images/product_images/30.iPhone7_1.webp",
         "images":  [
           "assets/images/product_images/30.iPhone7_1.webp"
         ],
@@ -689,6 +721,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "캐논마운트 탐론 28-75 구매합니다(삽니다)",
+        "thumbnailImage": "assets/images/product_images/31.CanonMount_1.webp",
         "images":  [
           "assets/images/product_images/31.CanonMount_1.webp"
         ],
@@ -707,6 +740,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "DJI FPV COMBO 레이싱 드론 새제품\n\n국내 정식 수입제품, 비닐 포장 뜯지않은 새제품\n창고에 오래 보관되어 있어서 싸게 내놓습니다.\n\n새제품 가격 : 1,190,000\n할인가 : 750,000",
+        "thumbnailImage": "assets/images/product_images/32.DJICombo_1.webp",
         "images": [
           "assets/images/product_images/32.DJICombo_1.webp",
           "assets/images/product_images/32.DJICombo_2.webp",
@@ -733,6 +767,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "셀린느 트리오페 화이트 색상입니다\n현재 공홈에서는 틴 사이즈밖에 없고 틴사이즈가 520만원에 올라와있네요~\n제가 판매하는 클래식 사이즈(미듐)은 550만원이구요.\n클래식 사이즈는 현재 화이트 색상이 단종인건지 판매 안합니다\n\n틴 사이즈는 크기가 너무 작아서 뭔가 가방 든 티라고 해야하나..\n핏이 잘 안나더라구요 이왕 들거면 클래식 사이즈가 훨씬 이쁜거같아요\n크기는 22 X 15.5 X 6 CM 이고 카프스킨 소재에요",
+        "thumbnailImage": "assets/images/product_images/33.Celine_1.webp",
         "images":  [
           "assets/images/product_images/33.Celine_1.webp",
           "assets/images/product_images/33.Celine_2.webp",
@@ -757,6 +792,7 @@
         "waitingStatus": "거래완료",
         "priceStatus": "가격제안 불가",
         "decription": "펜할리곤스 브라브라브룸 저렴하게 파실분",
+        "thumbnailImage": "assets/data/product_images/34.Penhaligons1_.webp",
         "images": [
           "assets/data/product_images/34.Penhaligons1_.webp"
         ],
@@ -776,6 +812,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "장당 가격입니다.\n24년 12월 31일까지입니다.",
+        "thumbnailImage": "assets/data/postsimages/35.Ticket1_.webp",
         "images": [
         "assets/data/postsimages/35.Ticket1_.webp",
         "assets/data/postsimages/35.Ticket2_.webp"
@@ -796,6 +833,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "DJI 매빅2줌 플라이모어킷 판매합니다.\n24년 7월에 DJI코리아에서 기체 전체 점검 및\n짐벌모터, 카메라, 에어크래프트 새제품으로 교체받았습니다(65만원). 중고제품에서 흔히 나타나는 짐벌 과열이나 카메라 오작동 걱정없이 사용하실 수 있습니다. 여분 날개 두 세트 같이 드립니다.",
+        "thumbnailImage": "assets/images/product_images/36.DJIMAVIC_1.webp",
         "images": [
           "assets/images/product_images/36.DJIMAVIC_1.webp",
           "assets/images/product_images/36.DJIMAVIC_2.webp",
@@ -821,6 +859,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "레노버 Y700\n정발 또는 글로벌롬 삽니다\n정발아닌 제품은 가격 협의 합니다",
+        "thumbnailImage": "assets/images/product_images/37.LY700_1.webp",
         "images": [
           "assets/images/product_images/37.LY700_1.webp"
           ],
@@ -840,6 +879,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "삽니다. 미개봉 에어팟 맥스 c타입 미드나이트, 스타라이트\n선물해야해서요",
+        "thumbnailImage": "assets/images/product_images/38.AirPodMax_1.webp",
         "images": [
           "assets/images/product_images/38.AirPodMax_1.webp"
           ],
@@ -859,6 +899,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "까르띠에 파베 다이아 반지 로골 48 49호 삽니다",
+        "thumbnailImage": "assets/images/product_images/39.Cartier_1.webp",
         "images": [
           "assets/images/product_images/39.Cartier_1.webp"
           ],
@@ -878,6 +919,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "똑같은 가방 구해욤",
+        "thumbnailImage": "assets/images/product_images/40.NikeBackPack_1.webp",
         "images": [
           "assets/images/product_images/40.NikeBackPack_1.webp"
           ],
@@ -897,6 +939,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 불가",
         "decription": "에어팟 프로2 미개봉 삽니다",
+        "thumbnailImage": "assets/images/product_images/41.AirpodPro_1.webp",
         "images": [
           "assets/images/product_images/41.AirpodPro_1.webp"
           ],
@@ -916,6 +959,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "작년에 구입한 구찌 마몬트 벨트입니다. 95사이즈 (30-34사이즈)\n상태는 깨끗하고 벨트가 좀 커서 명품 수선집에서 구멍 1개 더 뚫었습니다.\n구성품은 더스트백 박스 있어요.\n정품 확실하니 안심하시고 싼가격에 사서 편하게 쓰세요.",
+        "thumbnailImage": "assets/images/product_images/42.GucciBelt_1.webp",
         "images": [
           "assets/images/product_images/42.GucciBelt_1.webp"
           ],
@@ -935,6 +979,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "품번: 1203A536-102\n사이즈: 250\n미착용 새상품 판매\n아식스코리아",
+        "thumbnailImage": "assets/images/product_images/43.AsicsGel_1.webp",
         "images": [
           "assets/images/product_images/43.AsicsGel_1.webp",
           "assets/images/product_images/43.AsicsGel_2.webp",
@@ -959,6 +1004,7 @@
         "waitingStatus": "거래완료",
         "priceStatus": "가격제안 가능",
         "decription": "모델명 : 갤럭시S22\n색상 : 그린\n용량 : 256GB\n최초 개통일 : 2024년04월23일\n24년 개통이라 보증기간 넉넉합니다\n액정 깨끗합니다\n테두리 기스없이 깨끗합니다\n외관 사진 확대해서 참고 부탁드려요\n잔상이나 화면하자 없습니다\n이외에 전부 문제 없어요\n모든기능정상입니다\n투명케이스 필름지 같이 드려요",
+        "thumbnailImage": "assets/images/product_images/44.GalaxyS22_1.webp",
         "images": [
           "assets/images/product_images/44.GalaxyS22_1.webp",
           "assets/images/product_images/44.GalaxyS22_2.webp",
@@ -983,6 +1029,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "Selling this MacBook Air. Zero scratches and looks brand new. Also includes power adapter and cord (c type). I'm near Hell's Kitchen.",
+        "thumbnailImage": "assets/images/product_images/45.MacBookAir2018_1.webp",
         "images": [
           "assets/images/product_images/45.MacBookAir2018_1.webp",
           "assets/images/product_images/45.MacBookAir2018_2.webp"
@@ -1003,6 +1050,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "I am selling my iPad bundle. Purchased it this year but rarely used it. It has zero scratches and looks brand new. This bundle comes with a case and Apple Pencil (2nd Generation).",
+        "thumbnailImage": "assets/images/product_images/46.iPadPro11_1.webp",
         "images": [
           "assets/images/product_images/46.iPadPro11_1.webp",
           "assets/images/product_images/46.iPadPro11_2.webp",
@@ -1024,6 +1072,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "MacBook Air running macOS Big Sur. Comes with a case.\nVersion 11.4, 13-inch, 1.6 GHz processor i5, 121GB storage.\nNever learned to use it and never used it. Just got it checked it out at Apple and it is in perfect conditions.",
+        "thumbnailImage": "assets/images/product_images/47.MacBookAir2018_1.webp",
         "images": [
           "assets/images/product_images/47.MacBookAir2018_1.webp",
           "assets/images/product_images/47.MacBookAir2018_2.webp",
@@ -1046,6 +1095,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "Oil on Canvas -Signed by Artist - 9 x 7",
+        "thumbnailImage": "assets/images/product_images/48.OilonCanvas_1.webp",
         "images": [
           "assets/images/product_images/48.OilonCanvas_1.webp",
           "assets/images/product_images/48.OilonCanvas_2.webp",
@@ -1067,6 +1117,7 @@
         "waitingStatus": "거래완료",
         "priceStatus": "가격제안 가능",
         "decription": "Framed Oil on Canvas Floral Painting Signed by Artist 18 x 14",
+        "thumbnailImage": "assets/images/product_images/49.FramedOil_1.webp",
         "images":[
           "assets/images/product_images/49.FramedOil_1.webp",
           "assets/images/product_images/49.FramedOil_2.webp"
@@ -1087,6 +1138,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "Wireless headset, includes USB transmitter. Excellent condition.",
+        "thumbnailImage": "assets/images/product_images/50.PlayStationHeadset_1.webp",
         "images": [
           "assets/images/product_images/50.PlayStationHeadset_1.webp",
           "assets/images/product_images/50.PlayStationHeadset_2.webp",
@@ -1108,6 +1160,7 @@
         "waitingStatus": "판매중",
         "priceStatus": "가격제안 가능",
         "decription": "One and only! Brand NEW sealed — archive collections — Diptyque Limited Edition Eau Capitale 75mL.",
+        "thumbnailImage": "assets/images/product_images/51.Diptyque_1.webp",
         "images": [
           "assets/images/product_images/51.Diptyque_1.webp",
           "assets/images/product_images/51.Diptyque_2.webp"
