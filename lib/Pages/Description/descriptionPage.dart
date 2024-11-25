@@ -6,7 +6,7 @@ class DescriptionPage extends StatelessWidget {
       required this.productTitle,
       required this.productCategory,
       required this.productStatus,
-      required this.prductPrice,
+      required this.productPrice,
       required this.productDescription,
       required this.priceStatus});
 
@@ -14,7 +14,7 @@ class DescriptionPage extends StatelessWidget {
   final productTitle;
   final productCategory;
   final productStatus;
-  final prductPrice;
+  final productPrice;
   final productDescription;
   final priceStatus;
 
@@ -109,7 +109,7 @@ class DescriptionPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(prductPrice,
+                      Text(productPrice,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       SizedBox(height: 4),

@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // 공통 위젯 모음 클래스
 class CommonWidgets {
-  // 공통 확인 버튼 위젯
+  // 확인 버튼 위젯
   static Widget confirmButton({
     required BuildContext context,
     required VoidCallback? onPressed,
@@ -16,10 +16,12 @@ class CommonWidgets {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        //'확인 버튼'에 대한 에니메이션 효과
         SlideTransition(
+          //애니메이션의 시작 값과 끝 값 정의
           position: Tween<Offset>(
-            begin: const Offset(0, 1),
-            end: Offset.zero,
+            begin: const Offset(0, 1), //애니메이션 시작 위치 : 화면 아래
+            end: Offset.zero, // 애니메이션 끝 위치 : 화면 원래 자리
           ).animate(CurvedAnimation(
             parent: ModalRoute.of(context)!.animation!,
             curve: Curves.easeOut,
@@ -58,7 +60,6 @@ class GenericSettingPage extends StatefulWidget {
   final List<Map<String, dynamic>> items;
   final Widget Function(String) nextPageBuilder;
   final String? initialSelection;
-  final String? currentSelection;
 
   const GenericSettingPage({
     Key? key,
@@ -66,7 +67,6 @@ class GenericSettingPage extends StatefulWidget {
     required this.items,
     required this.nextPageBuilder,
     this.initialSelection,
-    this.currentSelection,
   }) : super(key: key);
 
   @override
@@ -74,14 +74,14 @@ class GenericSettingPage extends StatefulWidget {
 }
 
 class _GenericSettingPageState extends State<GenericSettingPage> {
-  late String _selectedItem;
+  late String selectedItem;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _selectedItem = widget.initialSelection ?? '';
+    selectedItem = widget.initialSelection ?? '';
   }
 
   @override
@@ -99,54 +99,7 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
-                // 현재 선택된 항목 표시
-                if (widget.currentSelection != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Text(
-                      '현재 ${widget.title}: ${widget.currentSelection}',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                // 검색 필드
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: '${widget.title} 검색',
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      ),
-                      onChanged: (value) => setState(() {}),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                // 검색 결과 헤더
-                Container(
-                  width: double.infinity,
-                  color: Colors.grey[100],
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    '검색 결과',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-                Divider(height: 1, thickness: 1),
+                // 필요한 다른 상단 요소를 여기에 추가할 수 있습니다.
               ],
             ),
           ),
@@ -165,7 +118,7 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        _selectedItem = item['name'];
+                        selectedItem = item['name'];
                       });
                     },
                     child: Padding(
@@ -193,14 +146,14 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
                               item['name'],
                               style: TextStyle(
                                 fontSize: 18,
-                                color: _selectedItem == item['name']
+                                color: selectedItem == item['name']
                                     ? Colors.purple
                                     : Colors.black,
                               ),
                             ),
                           ),
                           // 체크 아이콘
-                          if (_selectedItem == item['name'])
+                          if (selectedItem == item['name'])
                             Icon(Icons.check, color: Colors.purple),
                         ],
                       ),
@@ -212,13 +165,13 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
             ),
           ),
           // 확인 버튼
-          if (_selectedItem.isNotEmpty)
+          if (selectedItem.isNotEmpty)
             CommonWidgets.confirmButton(
               context: context,
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => widget.nextPageBuilder(_selectedItem),
+                  builder: (context) => widget.nextPageBuilder(selectedItem),
                 ),
               ),
             ),
@@ -254,7 +207,8 @@ class LanguageSetting extends StatelessWidget {
       title: '언어 선택',
       items: languages,
       initialSelection: selectedLanguage,
-      nextPageBuilder: (selectedLanguage) => CitySelection(),
+      nextPageBuilder: (selectedLanguage) =>
+          CitySelection(), //선택된 언어를 CitySelection 위젯으로 넘겨줌
     );
   }
 }
@@ -264,9 +218,8 @@ class CitySelection extends StatelessWidget {
   final String selectedCity;
   const CitySelection({Key? key, this.selectedCity = ''}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> cities = [
+  static List<Map<String, dynamic>> getCities() {
+    return [
       {'name': '런던, 영국', 'flag': 'GB'},
       {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
       {'name': '이스탄불, 터키', 'flag': 'TR'},
@@ -298,18 +251,27 @@ class CitySelection extends StatelessWidget {
       {'name': '밀라노, 이탈리아', 'flag': 'IT'},
       {'name': '비엔나, 오스트리아', 'flag': 'AT'},
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> cities = getCities();
 
     return GenericSettingPage(
       title: '도시 선택',
       items: cities,
       initialSelection: selectedCity,
-      nextPageBuilder: (selectedCity) => CurrencySetting(),
+      nextPageBuilder: (selectedCity) =>
+          CurrencySetting(selectedCity: selectedCity),
     );
   }
 }
 
 // 통화 설정 페이지
 class CurrencySetting extends StatelessWidget {
+  CurrencySetting({required this.selectedCity});
+  String selectedCity;
+
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> currencies = [
@@ -326,13 +288,17 @@ class CurrencySetting extends StatelessWidget {
     return GenericSettingPage(
       title: '선호 통화 선택',
       items: currencies,
-      nextPageBuilder: (selectedCurrency) => NicknameSetting(),
+      nextPageBuilder: (selectedCurrency) => NicknameSetting(
+        selectedCity: selectedCity,
+      ),
     );
   }
 }
 
 // 닉네임 설정 페이지
 class NicknameSetting extends StatefulWidget {
+  NicknameSetting({required this.selectedCity});
+  String selectedCity;
   @override
   _NicknameSettingState createState() => _NicknameSettingState();
 }
@@ -352,7 +318,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _profileImagePath = prefs.getString('profile_image') ??
-          'assets/system_images/defaultprofile.jpg';
+          'assets/images/profile_images/defaultprofile.jpg';
     });
   }
 
@@ -383,7 +349,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
                 CircleAvatar(
                   radius: 60,
                   backgroundImage: _profileImagePath ==
-                          'assets/system_images/defaultprofile.jpg'
+                          'assets/images/profile_images/defaultprofile.jpg'
                       ? AssetImage(_profileImagePath)
                       : FileImage(File(_profileImagePath)) as ImageProvider,
                 ),
@@ -440,7 +406,10 @@ class _NicknameSettingState extends State<NicknameSetting> {
               await prefs.setString('nickname', _nicknameController.text);
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                          getSelectedCity: widget.selectedCity,
+                        )),
               );
             },
           ),

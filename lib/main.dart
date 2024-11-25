@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Pages/Login/loginPage.dart';
+import 'package:flutter_nomad_market/Pages/Login/loginPage.dart';
 
 void main() {
   runApp(const MyApp());

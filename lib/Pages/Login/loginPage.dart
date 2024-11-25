@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
             Stack(
               alignment: Alignment.center,
               children: [
-                Image.asset("assets/system_images/nomadmarketlogo4_3.png"),
+                Image.asset("assets/images/logo_images/nomadmarketlogo4_3.png"),
                 Positioned(
                   bottom: 80,
                   child: Text(
