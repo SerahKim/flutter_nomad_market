@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   final int itemsPerPage = 20;
   String selectedCity = '';
   List<Map<String, String>> cities = [];
+  List<dynamic> searchResults = [];
 
   final List<String> productCategory = [
     '전체',
@@ -106,6 +107,91 @@ class _HomePageState extends State<HomePage> {
         isLoading = false;
       });
     }
+  }
+
+  void _showSearchDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('상품검색'),
+          content: TextField(
+            onChanged: (value) {
+              _searchProducts(value);
+            },
+            decoration: InputDecoration(
+              hintText: '검색할 키워드 입력',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _searchProducts(String query) async {
+    if (query.isEmpty) {
+      setState(() {
+        searchResults = [];
+        products = []; // 검색어가 비어있을 때 products도 초기화
+      });
+      return;
+    }
+
+    final allProducts = await loadJsonData(
+      'assets/json/productInfo.json',
+      'productInfo',
+      selectedCity,
+      selectedProductCategory,
+      selectedSalesOrPurchaseCategory,
+      selectedWaitingCategory,
+    );
+
+    setState(() {
+      // 검색어와 일치하는 제품 필터링
+      searchResults = allProducts.where((product) {
+        final title = product['title'].toLowerCase();
+        final description = product['description'].toLowerCase();
+        final category = product['productCategory'].toLowerCase();
+        final images =
+            (product['images'] as List<dynamic>).join(' ').toLowerCase();
+        final searchQuery = query.toLowerCase();
+
+        // 검색어를 단어로 분리
+        final searchWords = searchQuery.split(' ');
+
+        // 제품명, 설명, 카테고리, 이미지 파일명에서 검색어의 일부라도 포함되는지 확인
+        bool matchesAnyField = searchWords.any((word) =>
+            title.contains(word) ||
+            description.contains(word) ||
+            category.contains(word) ||
+            images.contains(word));
+
+        // 특정 카테고리나 제품군에 대한 추가 검색 로직
+        if (category == '전자기기 및 가전' && searchQuery.contains('전자기기')) {
+          return true;
+        }
+
+        if (title.contains('아이폰') && searchQuery.contains('아이폰')) {
+          return true;
+        }
+
+        if ((title.contains('맥북') || title.contains('아이맥')) &&
+            searchQuery.contains('맥')) {
+          return true;
+        }
+
+        return matchesAnyField;
+      }).toList();
+      products = searchResults; // 검색 결과를 products에 할당하여 화면에 표시
+    });
   }
 
   Future<List<dynamic>> loadJsonData(
@@ -288,8 +374,8 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              onPressed: () {},
               icon: const Icon(Icons.search, size: 30),
+              onPressed: _showSearchDialog,
             ),
           ),
         ],

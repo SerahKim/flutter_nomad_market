@@ -63,8 +63,8 @@ class _ChattingListPageState extends State<ChattingListPage>
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(text: 'Messages'),
-            Tab(text: 'Notifications'),
+            Tab(text: '메시지'),
+            Tab(text: '알림'),
           ],
         ),
       ),
