@@ -7,6 +7,7 @@ import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
 import 'package:flutter_nomad_market/utils/json_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_nomad_market/Pages/Writing/writingPage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({required this.getSelectedCity});
@@ -109,6 +110,79 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  bool _isMenuOpen = false;
+
+  void _showWritingOptions() {
+    setState(() {
+      _isMenuOpen = true;
+    });
+
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final Offset offset = button.localToGlobal(Offset.zero);
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+          800, // 좌측 여백
+          MediaQuery.of(context).size.height - 280, // 하단에서 280픽셀 위
+          4000, // 메뉴 너비
+          MediaQuery.of(context).size.height - 100 // 하단 여백
+          ),
+      items: <PopupMenuEntry>[
+        PopupMenuItem(
+          child: Row(
+            children: [
+              Icon(Icons.request_page),
+              SizedBox(width: 8),
+              Text('물품 의뢰하기'),
+            ],
+          ),
+          onTap: () {
+            setState(() {
+              _isMenuOpen = false;
+            });
+            Future.delayed(
+              const Duration(seconds: 0),
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WritingPage(isRequesting: true),
+                ),
+              ),
+            );
+          },
+        ),
+        PopupMenuItem(
+          child: Row(
+            children: [
+              Icon(Icons.sell),
+              SizedBox(width: 8),
+              Text('내 물건 판매'),
+            ],
+          ),
+          onTap: () {
+            setState(() {
+              _isMenuOpen = false;
+            });
+            Future.delayed(
+              const Duration(seconds: 0),
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WritingPage(isRequesting: false),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    ).then((value) {
+      setState(() {
+        _isMenuOpen = false;
+      });
+    });
   }
 
   @override
@@ -307,6 +381,18 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
+      floatingActionButton: Container(
+        height: 50,
+        child: FloatingActionButton.extended(
+          onPressed: _showWritingOptions,
+          icon: Icon(_isMenuOpen ? Icons.close : Icons.add),
+          label: Text('글쓰기'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: CommonBottomWidget(),
     );
   }
