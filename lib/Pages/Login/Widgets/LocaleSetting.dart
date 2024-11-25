@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_nomad_market/Pages/Home/homePage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -305,8 +308,9 @@ class CurrencySetting extends StatelessWidget {
 
 // 닉네임 설정 페이지
 class NicknameSetting extends StatefulWidget {
+  final String selectedCity;
   NicknameSetting({required this.selectedCity});
-  String selectedCity;
+
   @override
   _NicknameSettingState createState() => _NicknameSettingState();
 }
@@ -315,11 +319,13 @@ class _NicknameSettingState extends State<NicknameSetting> {
   final TextEditingController _nicknameController = TextEditingController();
   String _profileImagePath = 'assets/images/profile_images/defaultprofile.jpg';
   final ImagePicker _picker = ImagePicker();
+  Map<String, dynamic>? parsedJsonData;
 
   @override
   void initState() {
     super.initState();
     _loadProfileImage();
+    _loadAndParseJsonData();
   }
 
   Future<void> _loadProfileImage() async {
@@ -328,6 +334,42 @@ class _NicknameSettingState extends State<NicknameSetting> {
       _profileImagePath = prefs.getString('profile_image') ??
           'assets/images/profile_images/defaultprofile.jpg';
     });
+  }
+
+  Future<void> _loadAndParseJsonData() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+    // 선택된 도시에 기반하여 제품 필터링
+    final List<dynamic> filteredProducts = (jsonData['products']
+                as List<dynamic>?)
+            ?.where((product) => product['selectedCity'] == widget.selectedCity)
+            .toList() ??
+        [];
+
+    // 필터링된 제품의 이미지 미리 로드
+    for (var product in filteredProducts) {
+      if (product['images'] != null && product['images'].isNotEmpty) {
+        for (String imagePath in product['images']) {
+          precacheImage(AssetImage(imagePath), context);
+        }
+      }
+    }
+
+    setState(() {
+      parsedJsonData = {'products': filteredProducts};
+    });
+
+    // 파싱된 데이터를 SharedPreferences에 저장
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('parsedJsonData', json.encode(parsedJsonData));
+  }
+
+  static Future<Map<String, dynamic>> loadAndParseJson() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    return json.decode(jsonString);
   }
 
   Future<void> _updateProfileImage() async {

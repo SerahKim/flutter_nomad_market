@@ -251,9 +251,13 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData) {
-            //dropdownBox 선택 값에 따른 필터링 부분
-            List<dynamic> filteredProducts = snapshot.data!.where((product) {
+          } else if (snapshot.hasError) {
+            return Center(child: Text('오류가 발생했습니다: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return Center(child: Text('데이터가 없습니다'));
+          } else {
+            List<dynamic> products = snapshot.data ?? [];
+            List<dynamic> filteredProducts = products.where((product) {
               bool cityMatch = product['selectedCity'] == selectedCity;
               //상품 카테고리
               bool categoryMatch = selectedProductCategory == '전체' ||
@@ -376,8 +380,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             );
-          } else {
-            return Center(child: Text('No data available'));
           }
         },
       ),
