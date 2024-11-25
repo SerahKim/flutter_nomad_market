@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
                   child: Text(
                     'Shop Globally, Travel Locally',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 15,
                       color: Colors.purple,
                       fontWeight: FontWeight.w500,
                     ),

@@ -4,7 +4,6 @@ import 'package:flag/flag.dart';
 import 'package:flutter_nomad_market/Pages/Home/homePage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_nomad_market/utils/json_utils.dart';
 
 // 공통 위젯 모음 클래스
 class CommonWidgets {
@@ -238,14 +237,14 @@ class LanguageSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> languages = [
-      {'name': '한국어', 'flag': 'KR'},
       {'name': 'English', 'flag': 'US'},
       {'name': '中文', 'flag': 'CN'},
-      {'name': '日本語', 'flag': 'JP'},
       {'name': 'Español', 'flag': 'ES'},
       {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Français', 'flag': 'FR'},
       {'name': 'Deutsch', 'flag': 'DE'},
+      {'name': '日本語', 'flag': 'JP'},
+      {'name': '한국어', 'flag': 'KR'},
       {'name': 'Português', 'flag': 'PT'},
       {'name': 'Русский', 'flag': 'RU'},
       {'name': 'Italiano', 'flag': 'IT'},
@@ -265,47 +264,41 @@ class CitySelection extends StatelessWidget {
   final String selectedCity;
   const CitySelection({Key? key, this.selectedCity = ''}) : super(key: key);
 
-  // cities 리스트를 클래스 레벨 변수로 이동
-  static final List<Map<String, dynamic>> cities = [
-    {'name': '서울, 대한민국', 'flag': 'KR'},
-    {'name': '도쿄, 일본', 'flag': 'JP'},
-    {'name': '뉴욕, 미국', 'flag': 'US'},
-    {'name': '로마, 이탈리아', 'flag': 'IT'},
-    {'name': '홍콩, 중국 특별행정구', 'flag': 'HK'},
-    {'name': '런던, 영국', 'flag': 'GB'},
-    {'name': '이스탄불, 터키', 'flag': 'TR'},
-    {'name': '파리, 프랑스', 'flag': 'FR'},
-    {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
-    {'name': '암스테르담, 네덜란드', 'flag': 'NL'},
-    {'name': '프랑크푸르트, 독일', 'flag': 'DE'},
-    {'name': '방콕, 태국', 'flag': 'TH'},
-    {'name': '싱가포르, 싱가포르', 'flag': 'SG'},
-    {'name': '시카고, 미국', 'flag': 'US'},
-    {'name': '로스앤젤레스, 미국', 'flag': 'US'},
-    {'name': '마드리드, 스페인', 'flag': 'ES'},
-    {'name': '바르셀로나, 스페인', 'flag': 'ES'},
-    {'name': '뮌헨, 독일', 'flag': 'DE'},
-    {'name': '상하이, 중국', 'flag': 'CN'},
-    {'name': '베이징, 중국', 'flag': 'CN'},
-    {'name': '쿠알라룸푸르, 말레이시아', 'flag': 'MY'},
-    {'name': '델리, 인도', 'flag': 'IN'},
-    {'name': '모스크바, 러시아', 'flag': 'RU'},
-    {'name': '멕시코시티, 멕시코', 'flag': 'MX'},
-    {'name': '토론토, 캐나다', 'flag': 'CA'},
-    {'name': '마이애미, 미국', 'flag': 'US'},
-    {'name': '샌프란시스코, 미국', 'flag': 'US'},
-    {'name': '취리히, 스위스', 'flag': 'CH'},
-    {'name': '밀라노, 이탈리아', 'flag': 'IT'},
-    {'name': '비엔나, 오스트리아', 'flag': 'AT'},
-  ];
-
-  // cities 리스트를 반환하는 메서드 추가
-  List<Map<String, dynamic>> getCities() {
-    return cities;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> cities = [
+      {'name': '런던, 영국', 'flag': 'GB'},
+      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
+      {'name': '이스탄불, 터키', 'flag': 'TR'},
+      {'name': '파리, 프랑스', 'flag': 'FR'},
+      {'name': '암스테르담, 네덜란드', 'flag': 'NL'},
+      {'name': '프랑크푸르트, 독일', 'flag': 'DE'},
+      {'name': '뉴욕, 미국', 'flag': 'US'},
+      {'name': '방콕, 태국', 'flag': 'TH'},
+      {'name': '싱가포르, 싱가포르', 'flag': 'SG'},
+      {'name': '도쿄, 일본', 'flag': 'JP'},
+      {'name': '서울, 대한민국', 'flag': 'KR'},
+      {'name': '홍콩, 중국 특별행정구', 'flag': 'HK'},
+      {'name': '시카고, 미국', 'flag': 'US'},
+      {'name': '로스앤젤레스, 미국', 'flag': 'US'},
+      {'name': '마드리드, 스페인', 'flag': 'ES'},
+      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
+      {'name': '로마, 이탈리아', 'flag': 'IT'},
+      {'name': '뮌헨, 독일', 'flag': 'DE'},
+      {'name': '상하이, 중국', 'flag': 'CN'},
+      {'name': '베이징, 중국', 'flag': 'CN'},
+      {'name': '쿠알라룸푸르, 말레이시아', 'flag': 'MY'},
+      {'name': '델리, 인도', 'flag': 'IN'},
+      {'name': '모스크바, 러시아', 'flag': 'RU'},
+      {'name': '멕시코시티, 멕시코', 'flag': 'MX'},
+      {'name': '토론토, 캐나다', 'flag': 'CA'},
+      {'name': '마이애미, 미국', 'flag': 'US'},
+      {'name': '샌프란시스코, 미국', 'flag': 'US'},
+      {'name': '취리히, 스위스', 'flag': 'CH'},
+      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
+      {'name': '비엔나, 오스트리아', 'flag': 'AT'},
+    ];
+
     return GenericSettingPage(
       title: '도시 선택',
       items: cities,
@@ -374,11 +367,6 @@ class _NicknameSettingState extends State<NicknameSetting> {
     }
   }
 
-  // 새로운 _addNewUser 메서드 추가
-  Future<void> _addNewUser(String nickname) async {
-    await addNewUser(nickname, _profileImagePath);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -393,7 +381,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
             child: Stack(
               children: [
                 CircleAvatar(
-                  radius: 100,
+                  radius: 60,
                   backgroundImage: _profileImagePath ==
                           'assets/system_images/defaultprofile.jpg'
                       ? AssetImage(_profileImagePath)
@@ -415,7 +403,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.purple,
                         shape: BoxShape.circle,
@@ -431,9 +419,9 @@ class _NicknameSettingState extends State<NicknameSetting> {
               ],
             ),
           ),
-          SizedBox(height: 60),
+          SizedBox(height: 40),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
               controller: _nicknameController,
               decoration: InputDecoration(
@@ -450,7 +438,6 @@ class _NicknameSettingState extends State<NicknameSetting> {
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
               await prefs.setString('nickname', _nicknameController.text);
-              await _addNewUser(_nicknameController.text); // 새 사용자 추가
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
