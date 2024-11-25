@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_nomad_market/Pages/Home/homePage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -190,17 +193,17 @@ class LanguageSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> languages = [
+      {'name': '한국어', 'flag': 'KR'},
       {'name': 'English', 'flag': 'US'},
+      {'name': '日本語', 'flag': 'JP'},
       {'name': '中文', 'flag': 'CN'},
       {'name': 'Español', 'flag': 'ES'},
-      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Français', 'flag': 'FR'},
+      {'name': 'Italiano', 'flag': 'IT'},
+      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Deutsch', 'flag': 'DE'},
-      {'name': '日本語', 'flag': 'JP'},
-      {'name': '한국어', 'flag': 'KR'},
       {'name': 'Português', 'flag': 'PT'},
       {'name': 'Русский', 'flag': 'RU'},
-      {'name': 'Italiano', 'flag': 'IT'},
     ];
 
     return GenericSettingPage(
@@ -220,23 +223,24 @@ class CitySelection extends StatelessWidget {
 
   static List<Map<String, dynamic>> getCities() {
     return [
-      {'name': '런던, 영국', 'flag': 'GB'},
-      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
-      {'name': '이스탄불, 터키', 'flag': 'TR'},
+      {'name': '서울, 대한민국', 'flag': 'KR'},
+      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '파리, 프랑스', 'flag': 'FR'},
+      {'name': '도쿄, 일본', 'flag': 'JP'},
+      {'name': '런던, 영국', 'flag': 'GB'},
+      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
+      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
+      {'name': '이스탄불, 터키', 'flag': 'TR'},
       {'name': '암스테르담, 네덜란드', 'flag': 'NL'},
       {'name': '프랑크푸르트, 독일', 'flag': 'DE'},
-      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '방콕, 태국', 'flag': 'TH'},
+      {'name': '로마, 이탈리아', 'flag': 'IT'},
+      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
       {'name': '싱가포르, 싱가포르', 'flag': 'SG'},
-      {'name': '도쿄, 일본', 'flag': 'JP'},
-      {'name': '서울, 대한민국', 'flag': 'KR'},
       {'name': '홍콩, 중국 특별행정구', 'flag': 'HK'},
       {'name': '시카고, 미국', 'flag': 'US'},
       {'name': '로스앤젤레스, 미국', 'flag': 'US'},
       {'name': '마드리드, 스페인', 'flag': 'ES'},
-      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
-      {'name': '로마, 이탈리아', 'flag': 'IT'},
       {'name': '뮌헨, 독일', 'flag': 'DE'},
       {'name': '상하이, 중국', 'flag': 'CN'},
       {'name': '베이징, 중국', 'flag': 'CN'},
@@ -248,9 +252,13 @@ class CitySelection extends StatelessWidget {
       {'name': '마이애미, 미국', 'flag': 'US'},
       {'name': '샌프란시스코, 미국', 'flag': 'US'},
       {'name': '취리히, 스위스', 'flag': 'CH'},
-      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
       {'name': '비엔나, 오스트리아', 'flag': 'AT'},
     ];
+  }
+
+  static Future<void> saveSelectedCity(String city) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedCity', city);
   }
 
   @override
@@ -261,16 +269,24 @@ class CitySelection extends StatelessWidget {
       title: '도시 선택',
       items: cities,
       initialSelection: selectedCity,
-      nextPageBuilder: (selectedCity) =>
-          CurrencySetting(selectedCity: selectedCity),
+      nextPageBuilder: (selectedCity) {
+        saveSelectedCity(selectedCity); // 선택된 도시 저장
+        return CurrencySetting(selectedCity: selectedCity);
+      },
     );
   }
 }
 
 // 통화 설정 페이지
 class CurrencySetting extends StatelessWidget {
+  final String selectedCity;
+
   CurrencySetting({required this.selectedCity});
-  String selectedCity;
+
+  Future<void> _saveSelectedCurrency(String currency) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedCurrency', currency);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -288,30 +304,35 @@ class CurrencySetting extends StatelessWidget {
     return GenericSettingPage(
       title: '선호 통화 선택',
       items: currencies,
-      nextPageBuilder: (selectedCurrency) => NicknameSetting(
-        selectedCity: selectedCity,
-      ),
+      nextPageBuilder: (selectedCurrency) {
+        _saveSelectedCurrency(
+            selectedCurrency.split(' ')[0]); // Save only 'KRW' or 'USD'
+        return NicknameSetting(selectedCity: selectedCity);
+      },
     );
   }
 }
 
 // 닉네임 설정 페이지
 class NicknameSetting extends StatefulWidget {
+  final String selectedCity;
   NicknameSetting({required this.selectedCity});
-  String selectedCity;
+
   @override
   _NicknameSettingState createState() => _NicknameSettingState();
 }
 
 class _NicknameSettingState extends State<NicknameSetting> {
   final TextEditingController _nicknameController = TextEditingController();
-  String _profileImagePath = 'assets/system_images/defaultprofile.jpg';
+  String _profileImagePath = 'assets/images/profile_images/defaultprofile.jpg';
   final ImagePicker _picker = ImagePicker();
+  Map<String, dynamic>? parsedJsonData;
 
   @override
   void initState() {
     super.initState();
     _loadProfileImage();
+    _loadAndParseJsonData();
   }
 
   Future<void> _loadProfileImage() async {
@@ -320,6 +341,42 @@ class _NicknameSettingState extends State<NicknameSetting> {
       _profileImagePath = prefs.getString('profile_image') ??
           'assets/images/profile_images/defaultprofile.jpg';
     });
+  }
+
+  Future<void> _loadAndParseJsonData() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+    // 선택된 도시에 기반하여 제품 필터링
+    final List<dynamic> filteredProducts = (jsonData['products']
+                as List<dynamic>?)
+            ?.where((product) => product['selectedCity'] == widget.selectedCity)
+            .toList() ??
+        [];
+
+    // 필터링된 제품의 이미지 미리 로드
+    for (var product in filteredProducts) {
+      if (product['images'] != null && product['images'].isNotEmpty) {
+        for (String imagePath in product['images']) {
+          precacheImage(AssetImage(imagePath), context);
+        }
+      }
+    }
+
+    setState(() {
+      parsedJsonData = {'products': filteredProducts};
+    });
+
+    // 파싱된 데이터를 SharedPreferences에 저장
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('parsedJsonData', json.encode(parsedJsonData));
+  }
+
+  static Future<Map<String, dynamic>> loadAndParseJson() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    return json.decode(jsonString);
   }
 
   Future<void> _updateProfileImage() async {
