@@ -22,14 +22,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<dynamic> products = [];
-  bool isLoading = false;
-  int currentPage = 0;
-  final int itemsPerPage = 20;
-  String selectedCity = '';
-  List<Map<String, String>> cities = [];
-  List<dynamic> searchResults = [];
-
+  //---------------dropdownBox의 목록들-----------------
+  //상품 카테고리
   final List<String> productCategory = [
     '전체',
     '전자기기 및 가전',
@@ -51,19 +45,24 @@ class _HomePageState extends State<HomePage> {
   ];
   String selectedProductCategory = '전체';
 
+  //삽니다 또는 팝니다
   final List<String> salesOrpurchaseCategory = ['전체', '삽니다', '팝니다'];
   String selectedSalesOrPurchaseCategory = '전체';
 
+  //판매 상태 카테고리
   final List<String> waitingCategory = ['모든 상품', '판매중'];
   String selectedWaitingCategory = '모든 상품';
 
+  //정렬 카테고리
   final List<String> sortCategory = ['최신순', '좋아요순', '댓글순'];
   String selectedSortCategory = '최신순';
 
+  //------------productInfo json을 사용하기 위한 부분-----------------------------
   //productInfo.json을 사용하기 위한 변수
   final Future<List<dynamic>> productInfo =
       loadJsonData('assets/json/productInfo.json', 'productInfo');
 
+  // -----------도시 정보와 통화 정보를 받아오기 위한 부분------------------
   //CitySelection에서 city에 대한 정보를 가져오기 위한 setting
   List<Map<String, dynamic>> cities = [];
   String selectedCity = '';
@@ -80,20 +79,23 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _initialization();
     _loadSelection();
+  }
+
+  //도시 정보를 받아오는 부분
+  void _initialization() {
+    cities = CitySelection.getCities();
+  }
+
+  //선택된 정보들을 받아와서 각각의 변수에 저장
+  Future<void> _loadSelection() async {
+    setState(() {
+      selectedCity = widget.getSelectedCity; //선택된 도시
+      selectedCurrency = widget.getSelectedCurrency; //선택된 통화
+    });
     _getCurrency();
   }
 
-  void _initialization() {
-    cities = CitySelection.getCities(); //도시 정보
-  }
-
-  Future<void> _loadSelection() async {
-    setState(() {
-      selectedCity = widget.getSelectedCity;
-      selectedCurrency = widget.getSelectedCurrency;
-    });
-  }
-
+  //선택된 통화의 통화 기호를 추출하기 위한 정규 표현식
   void _getCurrency() {
     super.initState();
     //priceCurrency에서 정규 표현식과 매칭되는 부분을 matchString 변수에 저장
@@ -108,6 +110,149 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  //---------------------검색 기능 추가 부분-----------------------------
+  List<dynamic> searchedProducts = [];
+  List<dynamic> searchResults = [];
+
+  void _showSearchDialog() {
+    String searchQuery = ""; // 다이얼로그 내 검색어 저장
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('상품검색'),
+          content: TextField(
+            onChanged: (value) {
+              searchQuery = value; // 검색어 저장
+            },
+            decoration: InputDecoration(
+              hintText: '검색할 키워드 입력',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Search'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+                _searchProducts(searchQuery); // 검색 실행
+              },
+            ),
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 다이얼로그 닫기
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _searchProducts(String query) async {
+    if (query.isEmpty) {
+      setState(() {
+        searchResults = []; //검색상태 초기화
+      });
+      return;
+    }
+
+    // productInfo에서 데이터를 기다림
+    final List<dynamic> products = await productInfo;
+
+    setState(() {
+      searchResults = products.where((product) {
+        final title = product['title']?.toString().toLowerCase() ?? '';
+        final description =
+            product['description']?.toString().toLowerCase() ?? '';
+        final category =
+            product['productCategory']?.toString().toLowerCase() ?? '';
+        final images = (product['images'] as List<dynamic>)
+            .map((image) => image.toString().toLowerCase())
+            .join(' ');
+
+        final searchWords = query.toLowerCase().split(' ');
+
+        return searchWords.any((word) =>
+            title.contains(word) ||
+            description.contains(word) ||
+            category.contains(word) ||
+            images.contains(word));
+      }).toList();
+    });
+  }
+
+  //---------------------글쓰기 버튼 추가 부분----------------------------
+  bool _isMenuOpen = false;
+
+  void _showWritingOptions() {
+    setState(() {
+      _isMenuOpen = true;
+    });
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(
+          800,
+          MediaQuery.of(context).size.height - 280,
+          4000,
+          MediaQuery.of(context).size.height - 100),
+      items: [
+        PopupMenuItem(
+          child: Row(
+            children: [
+              Icon(Icons.request_page),
+              SizedBox(width: 8),
+              Text('물품 의뢰하기'),
+            ],
+          ),
+          onTap: () {
+            setState(() {
+              _isMenuOpen = false;
+            });
+            Future.delayed(
+              const Duration(seconds: 0),
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WritingPage(isRequesting: true),
+                ),
+              ),
+            );
+          },
+        ),
+        PopupMenuItem(
+          child: Row(
+            children: [
+              Icon(Icons.sell),
+              SizedBox(width: 8),
+              Text('내 물건 판매'),
+            ],
+          ),
+          onTap: () {
+            setState(() {
+              _isMenuOpen = false;
+            });
+            Future.delayed(
+              const Duration(seconds: 0),
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WritingPage(isRequesting: false),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    ).then((value) {
+      setState(() {
+        _isMenuOpen = false;
+      });
+    });
+  }
+
+  //UI 설정 부분
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,9 +277,8 @@ class _HomePageState extends State<HomePage> {
             onSelected: (String newCity) async {
               setState(() {
                 selectedCity = newCity;
-                products.clear();
+                searchedProducts.clear();
               });
-              await _loadAllProducts();
               final prefs = await SharedPreferences.getInstance();
               await prefs.setString('selectedCity', newCity);
             },
@@ -163,6 +307,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
+              onPressed: _showSearchDialog,
               icon: const Icon(Icons.search, size: 30),
             ),
           )
@@ -246,7 +391,8 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      Text('${filteredProducts.length}개의 상품이 있습니다.'),
+                      Text(
+                          '${searchResults.isNotEmpty ? searchResults.length : filteredProducts.length}개의 상품이 있습니다.'),
                       Spacer(),
                       Container(
                         width: 150,
@@ -265,36 +411,55 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    //드롭다운 박스를 통해 필터링 된 것들만 보여줌.
-                    itemCount: filteredProducts.length,
+                    itemCount: searchResults.isNotEmpty
+                        ? searchResults.length
+                        : filteredProducts.length,
                     itemBuilder: (context, index) {
-                      final item = products[index];
+                      //product_info json
+                      //검색을 했다면 검색한 결과의 상품 리스트 표시, 없다면 모든 상품 리스트 또는 필터링된 상품 리스트 표시
+                      final itemInfo = searchResults.isNotEmpty
+                          ? searchResults[index]
+                          : filteredProducts[index];
+
                       return ProductList(
                         nextPage: DescriptionPage(
-                            productImage: item["images"],
-                            productTitle: item["title"],
-                            productCategory: item["productCategory"],
-                            productStatus: item["productStatus"],
-                            productPrice: item["priceWon"],
-                            productDescription: item["decription"],
-                            priceStatus: item['priceStatus'],
-                            priceCurrency: currencySymbol),
-                        productThumbnail: item["images"][0],
-                        productTitle: item["title"],
-                        productStatus: item["waitingStatus"],
-                        productPrice: item["priceWon"],
+                          userID: itemInfo["userId"],
+                          productImage: itemInfo["images"],
+                          productTitle: itemInfo["title"],
+                          productCategory: itemInfo["productCategory"],
+                          productStatus: itemInfo["productStatus"],
+                          productPrice: itemInfo["priceWon"],
+                          productDescription:
+                              itemInfo["description"] ?? "설명 없음",
+                          priceStatus: itemInfo['priceStatus'],
+                          priceCurrency: currencySymbol,
+                        ),
+                        productThumbnail: itemInfo["thumbnailImage"] ?? "",
+                        productTitle: itemInfo["title"] ?? "제목 없음",
+                        productStatus: itemInfo["waitingStatus"] ?? "대기 상태 없음",
+                        productPrice: itemInfo["priceWon"] ?? "가격 없음",
                         priceCurrency: currencySymbol,
                       );
                     },
                   ),
                 ),
-                CommonBottomWidget(),
               ],
             );
           } else {
             return Center(child: Text('No data available'));
           }
         },
+      ),
+      floatingActionButton: Container(
+        height: 50,
+        child: FloatingActionButton.extended(
+          onPressed: _showWritingOptions,
+          icon: Icon(_isMenuOpen ? Icons.close : Icons.add),
+          label: Text('글쓰기'),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: CommonBottomWidget(),

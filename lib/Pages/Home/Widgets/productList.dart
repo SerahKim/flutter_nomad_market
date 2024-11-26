@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ProductList extends StatefulWidget {
-  ProductList(
-      {required this.nextPage,
-      required this.productThumbnail,
-      required this.productTitle,
-      required this.productStatus,
-      required this.productPrice,
-      required this.priceCurrency});
+  ProductList({
+    required this.nextPage,
+    required this.productThumbnail,
+    required this.productTitle,
+    required this.productStatus,
+    required this.productPrice,
+    required this.priceCurrency,
+  });
 
   final Widget nextPage;
   final String productThumbnail;
@@ -21,33 +22,19 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-class ProductList extends StatelessWidget {
-  final String productThumbnail;
-  final String productTitle;
-  final String productStatus;
-  final String waitingStatus;
-  final String productPriceKRW;
-  final String productPriceUSD;
-  final String selectedCurrency;
-  final VoidCallback onTap;
-
-  const ProductList({
-    required this.productThumbnail,
-    required this.productTitle,
-    required this.productStatus,
-    required this.waitingStatus,
-    required this.productPriceKRW,
-    required this.productPriceUSD,
-    required this.selectedCurrency,
-    required this.onTap,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: GestureDetector(
-        onTap: onTap, // Use onTap here
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => widget.nextPage,
+            ),
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -64,7 +51,7 @@ class ProductList extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(
-                    productThumbnail,
+                    widget.productThumbnail,
                     width: 80,
                     height: 80,
                     fit: BoxFit.cover,
@@ -76,7 +63,7 @@ class ProductList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        productTitle,
+                        widget.productTitle,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -84,12 +71,12 @@ class ProductList extends StatelessWidget {
                       ),
                       SizedBox(height: 2),
                       Text(
-                        productStatus,
+                        widget.productStatus,
                         style: TextStyle(
                           fontSize: 14,
-                          color: productStatus == '판매중'
+                          color: widget.productStatus == '판매중'
                               ? Colors.green
-                              : productStatus == '판매 완료'
+                              : widget.productStatus == '판매완료'
                                   ? Colors.red
                                   : Colors.black,
                         ),
@@ -104,6 +91,7 @@ class ProductList extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          SizedBox(width: 4),
                           Text(
                             widget.productPrice,
                             style: TextStyle(
@@ -112,14 +100,6 @@ class ProductList extends StatelessWidget {
                             ),
                           ),
                         ],
-                      Text(
-                        selectedCurrency == 'KRW'
-                            ? '₩$productPriceKRW'
-                            : '\$$productPriceUSD',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                     ],
                   ),
