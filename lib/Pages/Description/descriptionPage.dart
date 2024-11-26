@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatelessWidget {
-  DescriptionPage({
-    required this.productImage,
-    required this.productTitle,
-    required this.productCategory,
-    required this.productStatus,
-    required this.waitingStatus,
-    required this.productPriceKRW,
-    required this.productPriceUSD,
-    required this.productDescription,
-    required this.priceStatus,
-    required this.selectedCurrency,
-  });
+  DescriptionPage(
+      {required this.productImage,
+      required this.productTitle,
+      required this.productCategory,
+      required this.productStatus,
+      required this.productPrice,
+      required this.productDescription,
+      required this.priceStatus,
+      required this.priceCurrency});
 
-  final List productImage;
-  final String productTitle;
-  final String productCategory;
-  final String productStatus;
-  final String waitingStatus;
-  final String productPriceKRW;
-  final String productPriceUSD;
-  final String productDescription;
-  final String priceStatus;
-  final String selectedCurrency;
+  final List<dynamic> productImage;
+  final productTitle;
+  final productCategory;
+  final productStatus;
+  final productPrice;
+  final productDescription;
+  final priceStatus;
+  final priceCurrency;
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +75,9 @@ class DescriptionPage extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: productStatus == '판매중'
+                                color: productStatus == '팝니다'
                                     ? Colors.green
-                                    : productStatus == '판매 완료'
+                                    : productStatus == '삽니다'
                                         ? Colors.red
                                         : Colors.black),
                           ),
@@ -116,20 +111,23 @@ class DescriptionPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        selectedCurrency == 'KRW'
-                            ? '₩$productPriceKRW' // 선택된 통화에 따라 가격 표시 (원화)
-                            : '\$$productPriceUSD', // 선택된 통화에 따라 가격 표시 (달러)
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Text(priceCurrency,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text(productPrice,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                        ],
                       ),
                       SizedBox(height: 4),
                       Row(
                         children: [
                           Icon(Icons.payments,
-                              color: priceStatus == "가격 제안 가능"
+                              color: priceStatus == "가격제안 가능"
                                   ? Colors.green
-                                  : priceStatus == "가격 제안 불가"
+                                  : priceStatus == "가격제안 불가"
                                       ? Colors.red
                                       : Colors.black,
                               size: 20),
