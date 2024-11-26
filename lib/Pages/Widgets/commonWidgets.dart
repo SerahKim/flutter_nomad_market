@@ -29,6 +29,7 @@ class CommonBottomWidget extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => HomePage(
                       getSelectedCity: selectedCity,
+                      getSelectedCurrency: '',
                     ),
                   ),
                 );
