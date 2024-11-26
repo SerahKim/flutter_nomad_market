@@ -13,8 +13,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_nomad_market/Pages/Writing/writingPage.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({required this.getSelectedCity});
-  final String getSelectedCity;
+  HomePage({required this.getSelectedCity, required this.getSelectedCurrency});
+  final String getSelectedCity; //로그인 페이지에서 선택된 국가를 받아오기 위한 변수
+  final String getSelectedCurrency; //로그인 페이지에서 선택된 통화를 받아오기 위한 변수
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -59,264 +60,52 @@ class _HomePageState extends State<HomePage> {
   final List<String> sortCategory = ['최신순', '좋아요순', '댓글순'];
   String selectedSortCategory = '최신순';
 
-  bool _isMenuOpen = false;
+  //productInfo.json을 사용하기 위한 변수
+  final Future<List<dynamic>> productInfo =
+      loadJsonData('assets/json/productInfo.json', 'productInfo');
+
+  //CitySelection에서 city에 대한 정보를 가져오기 위한 setting
+  List<Map<String, dynamic>> cities = [];
+  String selectedCity = '';
+
+  //CurrencySetting에서 currency에 대한 정보를 가져오기 위한 setting
+  String selectedCurrency = '';
+
+  //통화 기호를 가지고 오기 위한 정규 표현식
+  RegExp regExp = RegExp(r'\((.*?)\)'); //괄호 안의 문자열을 찾는 정규 표현식
+  String currencySymbol = '';
 
   @override
   void initState() {
     super.initState();
-    _loadSelectedCity();
-    _loadAllProducts();
+    _initialization();
+    _loadSelection();
+    _getCurrency();
   }
 
-  void _initializeCities() {
-    cities = CitySelection.getCities()
-        .map((city) => Map<String, String>.from(city))
-        .toList();
+  void _initialization() {
+    cities = CitySelection.getCities(); //도시 정보
   }
 
-  Future<void> _loadSelectedCity() async {
+  Future<void> _loadSelection() async {
     setState(() {
       selectedCity = widget.getSelectedCity;
-    });
-    await _loadAllProducts();
-  }
-
-  Future<void> _loadAllProducts() async {
-    if (isLoading) return;
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      final allProducts = await loadJsonData(
-        'assets/json/productInfo.json',
-        'productInfo',
-        selectedCity,
-        selectedProductCategory,
-        selectedSalesOrPurchaseCategory,
-        selectedWaitingCategory,
-      );
-
-      setState(() {
-        products = allProducts;
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Error loading products: $e');
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  void _showSearchDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('상품검색'),
-          content: TextField(
-            onChanged: (value) {
-              _searchProducts(value);
-            },
-            decoration: InputDecoration(
-              hintText: '검색할 키워드 입력',
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _searchProducts(String query) async {
-    if (query.isEmpty) {
-      setState(() {
-        searchResults = [];
-        products = []; // 검색어가 비어있을 때 products도 초기화
-      });
-      return;
-    }
-
-    final allProducts = await loadJsonData(
-      'assets/json/productInfo.json',
-      'productInfo',
-      selectedCity,
-      selectedProductCategory,
-      selectedSalesOrPurchaseCategory,
-      selectedWaitingCategory,
-    );
-
-    setState(() {
-      // 검색어와 일치하는 제품 필터링
-      searchResults = allProducts.where((product) {
-        final title = product['title'].toLowerCase();
-        final description = product['description'].toLowerCase();
-        final category = product['productCategory'].toLowerCase();
-        final images =
-            (product['images'] as List<dynamic>).join(' ').toLowerCase();
-        final searchQuery = query.toLowerCase();
-
-        // 검색어를 단어로 분리
-        final searchWords = searchQuery.split(' ');
-
-        // 제품명, 설명, 카테고리, 이미지 파일명에서 검색어의 일부라도 포함되는지 확인
-        bool matchesAnyField = searchWords.any((word) =>
-            title.contains(word) ||
-            description.contains(word) ||
-            category.contains(word) ||
-            images.contains(word));
-
-        // 특정 카테고리나 제품군에 대한 추가 검색 로직
-        if (category == '전자기기 및 가전' && searchQuery.contains('전자기기')) {
-          return true;
-        }
-
-        if (title.contains('아이폰') && searchQuery.contains('아이폰')) {
-          return true;
-        }
-
-        if ((title.contains('맥북') || title.contains('아이맥')) &&
-            searchQuery.contains('맥')) {
-          return true;
-        }
-
-        return matchesAnyField;
-      }).toList();
-      products = searchResults; // 검색 결과를 products에 할당하여 화면에 표시
+      selectedCurrency = widget.getSelectedCurrency;
     });
   }
 
-  Future<List<dynamic>> loadJsonData(
-    String path,
-    String key,
-    String selectedCity,
-    String selectedProductCategory,
-    String selectedSalesOrPurchaseCategory,
-    String selectedWaitingCategory,
-  ) async {
-    final jsonString = await rootBundle.loadString(path);
-    final jsonData = json.decode(jsonString);
-    final List allItems = jsonData[key];
+  void _getCurrency() {
+    super.initState();
+    //priceCurrency에서 정규 표현식과 매칭되는 부분을 matchString 변수에 저장
+    Match? matchString = regExp.firstMatch(selectedCurrency);
 
-    //선택한 필터에 따라 필터링
-    return allItems
-        .where((item) =>
-            item['selectedCity'] == selectedCity &&
-            (selectedProductCategory == '전체' ||
-                item['productCategory'] == selectedProductCategory) &&
-            (selectedSalesOrPurchaseCategory == '전체' ||
-                item['productStatus'] == selectedSalesOrPurchaseCategory) &&
-            (selectedWaitingCategory == '모든 상품' ||
-                item['waitingStatus'] == selectedWaitingCategory))
-        .toList();
-  }
-
-  String formatPrice(String price, String currency) {
-    if (currency == 'KRW') {
-      return '₩$price';
+    if (matchString != null) {
+      //정규 표현식에서 찾은 매치의 첫번째 값을 추출
+      currencySymbol = matchString.group(1)!;
     } else {
-      return '\$$price';
+      //일치하는 문자열이 없는 경우 빈 값
+      currencySymbol = '';
     }
-  }
-
-  Future<String> _getSelectedCurrency() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('selectedCurrency') ?? 'USD';
-  }
-
-  void _navigateToDescriptionPage(
-      Map<String, dynamic> item, String selectedCurrency) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DescriptionPage(
-          productImage: item["images"] ?? [],
-          productTitle: item["title"] ?? '제목 없음',
-          productCategory: item["productCategory"] ?? '카테고리 없음',
-          productStatus: item["productStatus"] ?? '상태 없음',
-          waitingStatus: item["waitingStatus"] ?? '대기 상태 없음',
-          productDescription: item["description"] ?? '설명 없음',
-          priceStatus: item['priceStatus'] ?? '가격 정보 없음',
-          productPriceKRW: item["priceWon"] ?? '가격없음',
-          productPriceUSD: item["priceDollar"] ?? '가격없음',
-          selectedCurrency: selectedCurrency,
-        ),
-      ),
-    );
-  }
-
-  void _showWritingOptions() {
-    setState(() {
-      _isMenuOpen = true;
-    });
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(
-          800,
-          MediaQuery.of(context).size.height - 280,
-          4000,
-          MediaQuery.of(context).size.height - 100),
-      items: [
-        PopupMenuItem(
-          child: Row(
-            children: [
-              Icon(Icons.request_page),
-              SizedBox(width: 8),
-              Text('물품 의뢰하기'),
-            ],
-          ),
-          onTap: () {
-            setState(() {
-              _isMenuOpen = false;
-            });
-            Future.delayed(
-              const Duration(seconds: 0),
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WritingPage(isRequesting: true),
-                ),
-              ),
-            );
-          },
-        ),
-        PopupMenuItem(
-          child: Row(
-            children: [
-              Icon(Icons.sell),
-              SizedBox(width: 8),
-              Text('내 물건 판매'),
-            ],
-          ),
-          onTap: () {
-            setState(() {
-              _isMenuOpen = false;
-            });
-            Future.delayed(
-              const Duration(seconds: 0),
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WritingPage(isRequesting: false),
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    ).then((value) {
-      setState(() {
-        _isMenuOpen = false;
-      });
-    });
   }
 
   @override
@@ -375,132 +164,137 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               icon: const Icon(Icons.search, size: 30),
-              onPressed: _showSearchDialog,
             ),
-          ),
+          )
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: DropdownButtonWidget(
-                      selectedValue: selectedProductCategory,
-                      items: productCategory,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedProductCategory = value!;
-                          products.clear();
-                          currentPage = 0;
-                        });
-                        _loadAllProducts();
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: DropdownButtonWidget(
-                      selectedValue: selectedSalesOrPurchaseCategory,
-                      items: salesOrpurchaseCategory,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedSalesOrPurchaseCategory = value!;
-                          products.clear();
-                          currentPage = 0;
-                        });
-                        _loadAllProducts();
-                      },
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(
-                    child: DropdownButtonWidget(
-                      selectedValue: selectedWaitingCategory,
-                      items: waitingCategory,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedWaitingCategory = value!;
-                          products.clear();
-                          currentPage = 0;
-                        });
-                        _loadAllProducts();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
+      body: FutureBuilder<List<dynamic>>(
+        future: productInfo,
+        builder: (context, snapshot) {
+          //상품 리스트를 가져올 때 로딩화면
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasData) {
+            //dropdownBox 선택 값에 따른 필터링 부분
+            List<dynamic> filteredProducts = snapshot.data!.where((product) {
+              //도시 카테고리
+              bool cityMatch = product['selectedCity'] == selectedCity;
+
+              //상품 카테고리
+              bool categoryMatch = selectedProductCategory == '전체' ||
+                  product['productCategory'] == selectedProductCategory;
+
+              //전체, 삽니다, 팝니다
+              bool statusMatch = selectedSalesOrPurchaseCategory == '전체' ||
+                  product['productStatus'] == selectedSalesOrPurchaseCategory;
+
+              //전체, 거래 미완료, 거래완료(거래 완료는 선택지에 없음)
+              bool waitingMatch = selectedWaitingCategory == '모든 상품' ||
+                  product['waitingStatus'] == selectedWaitingCategory;
+
+              //categoryMatch, statusMatch, waitingMatch이 true인 product만 filteredProducts 리스트에 포함시킴.
+              return cityMatch && categoryMatch && statusMatch && waitingMatch;
+            }).toList();
+
+            return Column(
               children: [
-                Text('${products.length}개의 상품이 있습니다.'),
-                Spacer(),
                 Container(
-                  width: 150,
-                  child: DropdownButtonWidget(
-                    selectedValue: selectedSortCategory,
-                    items: sortCategory,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedSortCategory = value!;
-                      });
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: DropdownButtonWidget(
+                            selectedValue: selectedProductCategory,
+                            items: productCategory,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedProductCategory = value!;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: DropdownButtonWidget(
+                            selectedValue: selectedSalesOrPurchaseCategory,
+                            items: salesOrpurchaseCategory,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedSalesOrPurchaseCategory = value!;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: DropdownButtonWidget(
+                            selectedValue: selectedWaitingCategory,
+                            items: waitingCategory,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedWaitingCategory = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: FutureBuilder(
-              future: _getSelectedCurrency(),
-              builder: (context, currencySnapshot) {
-                if (currencySnapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (currencySnapshot.hasError) {
-                  return Center(child: Text('통화 로딩 중 오류 발생'));
-                } else {
-                  final selectedCurrency = currencySnapshot.data!;
-                  return ListView.builder(
-                    itemCount: products.length,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Text('${filteredProducts.length}개의 상품이 있습니다.'),
+                      Spacer(),
+                      Container(
+                        width: 150,
+                        child: DropdownButtonWidget(
+                          selectedValue: selectedSortCategory,
+                          items: sortCategory,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedSortCategory = value!;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    //드롭다운 박스를 통해 필터링 된 것들만 보여줌.
+                    itemCount: filteredProducts.length,
                     itemBuilder: (context, index) {
                       final item = products[index];
                       return ProductList(
-                        productThumbnail: item["thumbnailImage"] ??
-                            'assets/images/product_images/0.no_image.jpg',
-                        productTitle: item["title"] ?? '제목 없음',
-                        productStatus: item["productStatus"] ?? '상태 없음',
-                        waitingStatus: item["waitingStatus"] ?? '상태 없음',
-                        productPriceKRW: item["priceWon"] ?? '가격없음',
-                        productPriceUSD: item["priceDollar"] ?? '가격없음',
-                        selectedCurrency: selectedCurrency,
-                        onTap: () =>
-                            _navigateToDescriptionPage(item, selectedCurrency),
+                        nextPage: DescriptionPage(
+                            productImage: item["images"],
+                            productTitle: item["title"],
+                            productCategory: item["productCategory"],
+                            productStatus: item["productStatus"],
+                            productPrice: item["priceWon"],
+                            productDescription: item["decription"],
+                            priceStatus: item['priceStatus'],
+                            priceCurrency: currencySymbol),
+                        productThumbnail: item["images"][0],
+                        productTitle: item["title"],
+                        productStatus: item["waitingStatus"],
+                        productPrice: item["priceWon"],
+                        priceCurrency: currencySymbol,
                       );
                     },
-                  );
-                }
-              },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: Container(
-        height: 50,
-        child: FloatingActionButton.extended(
-          onPressed: _showWritingOptions,
-          icon: Icon(_isMenuOpen ? Icons.close : Icons.add),
-          label: Text('글쓰기'),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
+                  ),
+                ),
+                CommonBottomWidget(),
+              ],
+            );
+          } else {
+            return Center(child: Text('No data available'));
+          }
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: CommonBottomWidget(),

@@ -1,5 +1,26 @@
 import 'package:flutter/material.dart';
 
+class ProductList extends StatefulWidget {
+  ProductList(
+      {required this.nextPage,
+      required this.productThumbnail,
+      required this.productTitle,
+      required this.productStatus,
+      required this.productPrice,
+      required this.priceCurrency});
+
+  final Widget nextPage;
+  final String productThumbnail;
+  final String productTitle;
+  final String productStatus;
+  final String productPrice;
+  final String priceCurrency;
+
+  @override
+  State<ProductList> createState() => _ProductListState();
+}
+
+class _ProductListState extends State<ProductList> {
 class ProductList extends StatelessWidget {
   final String productThumbnail;
   final String productTitle;
@@ -74,6 +95,23 @@ class ProductList extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 5),
+                      Row(
+                        children: [
+                          Text(
+                            widget.priceCurrency,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            widget.productPrice,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       Text(
                         selectedCurrency == 'KRW'
                             ? '₩$productPriceKRW'
