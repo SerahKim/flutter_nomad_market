@@ -1,5 +1,4 @@
-![Nomad Market 로고](assets/images/logo_images/nomadmarketlogo4_3.png)
-<img src="assets/images/logo_images/nomadmarketlogo4_3.png" width="300", height="200">
+![Nomad Market 로고](assets/images/logo_images/nomadmarketlogo4_3.png){: width="300" height="200"}
 
 # Flutter Nomad Market
 
