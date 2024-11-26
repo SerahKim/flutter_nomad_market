@@ -20,7 +20,7 @@ Future<Map<String, dynamic>> loadUserData() async {
     String contents = await file.readAsString();
     return json.decode(contents);
   }
-  return {"users": []};
+  return {"userInfo": []};
 }
 
 // 사용자 정보를 저장하는 함수
