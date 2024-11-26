@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 class ProductList extends StatefulWidget {
   ProductList({
@@ -9,6 +7,7 @@ class ProductList extends StatefulWidget {
     required this.productTitle,
     required this.productStatus,
     required this.productPrice,
+    required this.priceCurrency,
   });
 
   final Widget nextPage;
@@ -16,6 +15,7 @@ class ProductList extends StatefulWidget {
   final String productTitle;
   final String productStatus;
   final String productPrice;
+  final String priceCurrency;
 
   @override
   State<ProductList> createState() => _ProductListState();
@@ -73,20 +73,33 @@ class _ProductListState extends State<ProductList> {
                       Text(
                         widget.productStatus,
                         style: TextStyle(
-                            fontSize: 14,
-                            color: widget.productStatus == '판매중'
-                                ? Colors.green
-                                : widget.productStatus == '판매 완료'
-                                    ? Colors.red
-                                    : Colors.black),
+                          fontSize: 14,
+                          color: widget.productStatus == '판매중'
+                              ? Colors.green
+                              : widget.productStatus == '판매완료'
+                                  ? Colors.red
+                                  : Colors.black,
+                        ),
                       ),
                       SizedBox(height: 5),
-                      Text(
-                        widget.productPrice,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            widget.priceCurrency,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            widget.productPrice,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

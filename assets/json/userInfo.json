@@ -16,7 +16,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat001", "chat002", "chat003", "chat005", "chat006", "chat007", "chat008"],
-      "rating": 4.8,
+      "rating": "4.8",
       "joinDate": "2023-12-01T00:00:00Z",
       "lastActive": "2024-02-26T21:29:00Z"
     },
@@ -36,7 +36,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat001", "chat004", "chat005"],
-      "rating": 4.3,
+      "rating": "4.3",
       "joinDate": "2024-01-15T00:00:00Z",
       "lastActive": "2024-02-26T18:29:00Z"
     },
@@ -56,7 +56,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat002", "chat006"],
-      "rating": 4.5,
+      "rating": "4.5",
       "joinDate": "2024-02-01T00:00:00Z",
       "lastActive": "2024-02-26T19:29:00Z"
     },
@@ -76,7 +76,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat003"],
-      "rating": 4.8,
+      "rating": "4.8",
       "joinDate": "2023-12-01T00:00:00Z",
       "lastActive": "2024-02-26T16:31:00Z"
     },
@@ -96,7 +96,7 @@
       },
       "wishlist": [],
       "chatRooms": [],
-      "rating": 4.3,
+      "rating": "4.3",
       "joinDate": "2024-01-15T00:00:00Z",
       "lastActive": null
     },
@@ -116,7 +116,7 @@
       },
       "wishlist": [],
       "chatRooms": [],
-      "rating": 4.5,
+      "rating": "4.5",
       "joinDate": "2024-02-01T00:00:00Z",
       "lastActive": "2024-02-26T17:31:00Z"
     },
@@ -136,7 +136,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat007"],
-      "rating": 4.9,
+      "rating": "4.9",
       "joinDate": "2023-01-01T00:00:00Z",
       "lastActive": "2024-02-26T20:28:00Z"
     },
@@ -156,7 +156,7 @@
       },
       "wishlist": [],
       "chatRooms": ["chat008"],
-      "rating": 4.8,
+      "rating": "4.8",
       "joinDate": "2023-06-01T00:00:00Z",
       "lastActive": "2024-02-26T21:28:00Z"
     },
@@ -176,7 +176,7 @@
       },
       "wishlist": [],
       "chatRooms": [],
-      "rating": 4.5,
+      "rating": "4.5",
       "joinDate": "2023-03-01T00:00:00Z",
       "lastActive": "2024-02-26T21:28:00Z"
     },
@@ -196,7 +196,7 @@
       },
       "wishlist": [],
       "chatRooms": [],
-      "rating": 4.9,
+      "rating": "4.9",
       "joinDate": "2023-01-01T00:00:00Z",
       "lastActive": "2024-02-26T21:28:00Z"
     }

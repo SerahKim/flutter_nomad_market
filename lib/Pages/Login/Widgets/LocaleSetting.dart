@@ -1,13 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_nomad_market/Pages/Home/homePage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 공통 위젯 모음 클래스
 class CommonWidgets {
-  // 공통 확인 버튼 위젯
+  // 확인 버튼 위젯
   static Widget confirmButton({
     required BuildContext context,
     required VoidCallback? onPressed,
@@ -16,10 +19,12 @@ class CommonWidgets {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        //'확인 버튼'에 대한 에니메이션 효과
         SlideTransition(
+          //애니메이션의 시작 값과 끝 값 정의
           position: Tween<Offset>(
-            begin: const Offset(0, 1),
-            end: Offset.zero,
+            begin: const Offset(0, 1), //애니메이션 시작 위치 : 화면 아래
+            end: Offset.zero, // 애니메이션 끝 위치 : 화면 원래 자리
           ).animate(CurvedAnimation(
             parent: ModalRoute.of(context)!.animation!,
             curve: Curves.easeOut,
@@ -58,7 +63,6 @@ class GenericSettingPage extends StatefulWidget {
   final List<Map<String, dynamic>> items;
   final Widget Function(String) nextPageBuilder;
   final String? initialSelection;
-  final String? currentSelection;
 
   const GenericSettingPage({
     Key? key,
@@ -66,7 +70,6 @@ class GenericSettingPage extends StatefulWidget {
     required this.items,
     required this.nextPageBuilder,
     this.initialSelection,
-    this.currentSelection,
   }) : super(key: key);
 
   @override
@@ -74,14 +77,14 @@ class GenericSettingPage extends StatefulWidget {
 }
 
 class _GenericSettingPageState extends State<GenericSettingPage> {
-  late String _selectedItem;
+  late String selectedItem;
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _selectedItem = widget.initialSelection ?? '';
+    selectedItem = widget.initialSelection ?? '';
   }
 
   @override
@@ -99,54 +102,7 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
-                // 현재 선택된 항목 표시
-                if (widget.currentSelection != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Text(
-                      '현재 ${widget.title}: ${widget.currentSelection}',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                // 검색 필드
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: '${widget.title} 검색',
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      ),
-                      onChanged: (value) => setState(() {}),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                // 검색 결과 헤더
-                Container(
-                  width: double.infinity,
-                  color: Colors.grey[100],
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    '검색 결과',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-                Divider(height: 1, thickness: 1),
+                // 필요한 다른 상단 요소를 여기에 추가할 수 있습니다.
               ],
             ),
           ),
@@ -165,7 +121,7 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
                   return InkWell(
                     onTap: () {
                       setState(() {
-                        _selectedItem = item['name'];
+                        selectedItem = item['name'];
                       });
                     },
                     child: Padding(
@@ -193,14 +149,14 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
                               item['name'],
                               style: TextStyle(
                                 fontSize: 18,
-                                color: _selectedItem == item['name']
+                                color: selectedItem == item['name']
                                     ? Colors.purple
                                     : Colors.black,
                               ),
                             ),
                           ),
                           // 체크 아이콘
-                          if (_selectedItem == item['name'])
+                          if (selectedItem == item['name'])
                             Icon(Icons.check, color: Colors.purple),
                         ],
                       ),
@@ -212,13 +168,13 @@ class _GenericSettingPageState extends State<GenericSettingPage> {
             ),
           ),
           // 확인 버튼
-          if (_selectedItem.isNotEmpty)
+          if (selectedItem.isNotEmpty)
             CommonWidgets.confirmButton(
               context: context,
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => widget.nextPageBuilder(_selectedItem),
+                  builder: (context) => widget.nextPageBuilder(selectedItem),
                 ),
               ),
             ),
@@ -237,24 +193,25 @@ class LanguageSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> languages = [
+      {'name': '한국어', 'flag': 'KR'},
       {'name': 'English', 'flag': 'US'},
+      {'name': '日本語', 'flag': 'JP'},
       {'name': '中文', 'flag': 'CN'},
       {'name': 'Español', 'flag': 'ES'},
-      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Français', 'flag': 'FR'},
+      {'name': 'Italiano', 'flag': 'IT'},
+      {'name': 'العربية', 'flag': 'AE'},
       {'name': 'Deutsch', 'flag': 'DE'},
-      {'name': '日本語', 'flag': 'JP'},
-      {'name': '한국어', 'flag': 'KR'},
       {'name': 'Português', 'flag': 'PT'},
       {'name': 'Русский', 'flag': 'RU'},
-      {'name': 'Italiano', 'flag': 'IT'},
     ];
 
     return GenericSettingPage(
       title: '언어 선택',
       items: languages,
       initialSelection: selectedLanguage,
-      nextPageBuilder: (selectedLanguage) => CitySelection(),
+      nextPageBuilder: (selectedLanguage) =>
+          CitySelection(), //선택된 언어를 CitySelection 위젯으로 넘겨줌
     );
   }
 }
@@ -264,26 +221,26 @@ class CitySelection extends StatelessWidget {
   final String selectedCity;
   const CitySelection({Key? key, this.selectedCity = ''}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> cities = [
-      {'name': '런던, 영국', 'flag': 'GB'},
-      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
-      {'name': '이스탄불, 터키', 'flag': 'TR'},
+  static List<Map<String, dynamic>> getCities() {
+    return [
+      {'name': '서울, 대한민국', 'flag': 'KR'},
+      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '파리, 프랑스', 'flag': 'FR'},
+      {'name': '도쿄, 일본', 'flag': 'JP'},
+      {'name': '런던, 영국', 'flag': 'GB'},
+      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
+      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
+      {'name': '이스탄불, 터키', 'flag': 'TR'},
       {'name': '암스테르담, 네덜란드', 'flag': 'NL'},
       {'name': '프랑크푸르트, 독일', 'flag': 'DE'},
-      {'name': '뉴욕, 미국', 'flag': 'US'},
       {'name': '방콕, 태국', 'flag': 'TH'},
+      {'name': '로마, 이탈리아', 'flag': 'IT'},
+      {'name': '두바이, 아랍에미리트', 'flag': 'AE'},
       {'name': '싱가포르, 싱가포르', 'flag': 'SG'},
-      {'name': '도쿄, 일본', 'flag': 'JP'},
-      {'name': '서울, 대한민국', 'flag': 'KR'},
       {'name': '홍콩, 중국 특별행정구', 'flag': 'HK'},
       {'name': '시카고, 미국', 'flag': 'US'},
       {'name': '로스앤젤레스, 미국', 'flag': 'US'},
       {'name': '마드리드, 스페인', 'flag': 'ES'},
-      {'name': '바르셀로나, 스페인', 'flag': 'ES'},
-      {'name': '로마, 이탈리아', 'flag': 'IT'},
       {'name': '뮌헨, 독일', 'flag': 'DE'},
       {'name': '상하이, 중국', 'flag': 'CN'},
       {'name': '베이징, 중국', 'flag': 'CN'},
@@ -295,24 +252,36 @@ class CitySelection extends StatelessWidget {
       {'name': '마이애미, 미국', 'flag': 'US'},
       {'name': '샌프란시스코, 미국', 'flag': 'US'},
       {'name': '취리히, 스위스', 'flag': 'CH'},
-      {'name': '밀라노, 이탈리아', 'flag': 'IT'},
       {'name': '비엔나, 오스트리아', 'flag': 'AT'},
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> cities = getCities();
 
     return GenericSettingPage(
       title: '도시 선택',
       items: cities,
       initialSelection: selectedCity,
-      nextPageBuilder: (selectedCity) => CurrencySetting(),
+      nextPageBuilder: (selectedCity) =>
+          CurrencySetting(selectedCity: selectedCity),
     );
   }
 }
 
-// 통화 설정 페이지
 class CurrencySetting extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> currencies = [
+  final String selectedCity;
+  final String selectedCurrency;
+
+  CurrencySetting({
+    Key? key,
+    required this.selectedCity,
+    this.selectedCurrency = '',
+  }) : super(key: key);
+
+  static List<Map<String, dynamic>> getCurrency() {
+    return [
       {'name': 'KRW (₩)', 'flag': 'KR'},
       {'name': 'USD (\$)', 'flag': 'US'},
       {'name': 'EUR (€)', 'flag': 'EU'},
@@ -320,40 +289,89 @@ class CurrencySetting extends StatelessWidget {
       {'name': 'GBP (£)', 'flag': 'GB'},
       {'name': 'CNY (¥)', 'flag': 'CN'},
       {'name': 'AUD (\$)', 'flag': 'AU'},
-      {'name': 'CAD (\$)', 'flag': 'CA'},
+      {'name': 'CAD (\$)', 'flag': 'CA'}
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> currencies = getCurrency();
 
     return GenericSettingPage(
       title: '선호 통화 선택',
       items: currencies,
-      nextPageBuilder: (selectedCurrency) => NicknameSetting(),
+      nextPageBuilder: (selectedCurrency) => NicknameSetting(
+        selectedCity: selectedCity,
+        selectedCurrency: selectedCurrency,
+      ),
     );
   }
 }
 
 // 닉네임 설정 페이지
 class NicknameSetting extends StatefulWidget {
+  NicknameSetting({required this.selectedCity, required this.selectedCurrency});
+  String selectedCity;
+  String selectedCurrency;
   @override
   _NicknameSettingState createState() => _NicknameSettingState();
 }
 
 class _NicknameSettingState extends State<NicknameSetting> {
   final TextEditingController _nicknameController = TextEditingController();
-  String _profileImagePath = 'assets/system_images/defaultprofile.jpg';
+  String _profileImagePath = 'assets/images/profile_images/defaultprofile.jpg';
   final ImagePicker _picker = ImagePicker();
+  Map<String, dynamic>? parsedJsonData;
 
   @override
   void initState() {
     super.initState();
     _loadProfileImage();
+    _loadAndParseJsonData();
   }
 
   Future<void> _loadProfileImage() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _profileImagePath = prefs.getString('profile_image') ??
-          'assets/system_images/defaultprofile.jpg';
+          'assets/images/profile_images/defaultprofile.jpg';
     });
+  }
+
+  Future<void> _loadAndParseJsonData() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+    // 선택된 도시에 기반하여 제품 필터링
+    final List<dynamic> filteredProducts = (jsonData['products']
+                as List<dynamic>?)
+            ?.where((product) => product['selectedCity'] == widget.selectedCity)
+            .toList() ??
+        [];
+
+    // 필터링된 제품의 이미지 미리 로드
+    for (var product in filteredProducts) {
+      if (product['images'] != null && product['images'].isNotEmpty) {
+        for (String imagePath in product['images']) {
+          precacheImage(AssetImage(imagePath), context);
+        }
+      }
+    }
+
+    setState(() {
+      parsedJsonData = {'products': filteredProducts};
+    });
+
+    // 파싱된 데이터를 SharedPreferences에 저장
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('parsedJsonData', json.encode(parsedJsonData));
+  }
+
+  static Future<Map<String, dynamic>> loadAndParseJson() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    return json.decode(jsonString);
   }
 
   Future<void> _updateProfileImage() async {
@@ -383,7 +401,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
                 CircleAvatar(
                   radius: 60,
                   backgroundImage: _profileImagePath ==
-                          'assets/system_images/defaultprofile.jpg'
+                          'assets/images/profile_images/defaultprofile.jpg'
                       ? AssetImage(_profileImagePath)
                       : FileImage(File(_profileImagePath)) as ImageProvider,
                 ),
@@ -440,7 +458,11 @@ class _NicknameSettingState extends State<NicknameSetting> {
               await prefs.setString('nickname', _nicknameController.text);
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                          getSelectedCity: widget.selectedCity,
+                          getSelectedCurrency: widget.selectedCurrency,
+                        )),
               );
             },
           ),

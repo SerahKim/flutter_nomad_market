@@ -3,6 +3,7 @@ import 'package:flutter_nomad_market/Pages/Login/Widgets/LocaleSetting.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/profilePage.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/purchaseHistory.dart';
 import 'package:flutter_nomad_market/Pages/My/Widgets/salesHistory.dart';
+import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -14,13 +15,12 @@ class MyPage extends StatelessWidget {
         title: Text('마이페이지'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        elevation: 0,
       ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15),
+            SizedBox(height: 20),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
@@ -71,7 +71,6 @@ class MyPage extends StatelessWidget {
                       contentPadding: EdgeInsets.zero,
                       onTap: () {
                         // TODO: 관심목록 페이지로 이동
-                        // Navigator.push(context, MaterialPageRoute(builder: (context) => WishlistPage()));
                       },
                     ),
                     ListTile(
@@ -129,43 +128,10 @@ class MyPage extends StatelessWidget {
                 ),
               ),
             ),
-            BottomNavigationWidget(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class BottomNavigationWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildNavButton(Icons.home, '홈', () {}),
-          _buildNavButton(Icons.chat_bubble_outline, '채팅', () {}),
-          _buildNavButton(Icons.person_outline, '마이페이지', () {}),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavButton(IconData icon, String label, VoidCallback onPressed) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.purple,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon),
-          Text(label),
-        ],
-      ),
+      bottomNavigationBar: CommonBottomWidget(),
     );
   }
 }
