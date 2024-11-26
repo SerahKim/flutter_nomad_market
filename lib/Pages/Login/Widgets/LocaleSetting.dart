@@ -256,11 +256,6 @@ class CitySelection extends StatelessWidget {
     ];
   }
 
-  static Future<void> saveSelectedCity(String city) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedCity', city);
-  }
-
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> cities = getCities();
@@ -269,10 +264,8 @@ class CitySelection extends StatelessWidget {
       title: '도시 선택',
       items: cities,
       initialSelection: selectedCity,
-      nextPageBuilder: (selectedCity) {
-        saveSelectedCity(selectedCity); // 선택된 도시 저장
-        return CurrencySetting(selectedCity: selectedCity);
-      },
+      nextPageBuilder: (selectedCity) =>
+          CurrencySetting(selectedCity: selectedCity),
     );
   }
 }
