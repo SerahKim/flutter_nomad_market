@@ -39,22 +39,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
   int _currentPage = 0;
 
   //------------userInfo json을 사용하기 위한 부분-----------------------------
-  Future<List<dynamic>> loadJsonData(String path, String key) async {
-    try {
-      final String response = await rootBundle.loadString(path);
-      final data = await json.decode(response);
-      if (data[key] is List) {
-        return data[key];
-      } else {
-        print(
-            'Warning: Data for key "$key" is not a List. Returning empty list.');
-        return [];
-      }
-    } catch (e) {
-      print('Error loading JSON data: $e');
-      return [];
-    }
-  }
+  Future<List<dynamic>> userInfo =
+      loadJsonData("assets/json/userInfo.json", "userInfo");
 
   //UI 설정 부분
   @override
@@ -86,7 +72,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
         ],
       ),
       body: FutureBuilder<List<dynamic>>(
-        future: loadJsonData("assets/json/userInfo.json", "userInfo"),
+        future: userInfo,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
