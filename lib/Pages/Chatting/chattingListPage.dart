@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_nomad_market/Pages/Chatting/Widgets/chattinPage.dart';
 import 'package:flutter_nomad_market/Pages/Widgets/commonWidgets.dart';
 import 'package:flutter_nomad_market/utils/json_utils.dart';
@@ -14,13 +16,26 @@ class _ChattingListPageState extends State<ChattingListPage>
   List<dynamic> chatList = []; // 채팅 목록을 저장할 리스트
   String userId = "user000001"; // 기본값 설정
   String nickname = "우수"; // 기본값 설정
+  Map<String, String> _thumbnailCache = {}; // 썸네일 이미지를 캐시하기 위한 맵
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _loadUserData(); // 사용자 데이터 로드
-    _loadChatData(); // 채팅 데이터 로드
+    _initializeData(); // 데이터 초기화 함수 호출
+  }
+
+  // 데이터 초기화를 위한 새로운 함수
+  Future<void> _initializeData() async {
+    try {
+      await Future.wait([
+        _loadUserData(),
+        _loadChatData(),
+      ]);
+      await _preloadThumbnails(); // 썸네일 미리 로드
+    } catch (e) {
+      print('Error initializing data: $e');
+    }
   }
 
   @override
@@ -31,8 +46,9 @@ class _ChattingListPageState extends State<ChattingListPage>
 
   // 사용자 데이터를 로드하는 함수
   Future<void> _loadUserData() async {
-    final userData =
-        await loadJsonData('assets/json/userInfo.json', 'userInfo');
+    final String response =
+        await rootBundle.loadString('assets/json/userInfo.json');
+    final userData = json.decode(response)['userInfo'];
     final currentUser = userData.firstWhere(
       (user) => user['nickname'] == nickname,
       orElse: () => {"userId": "user000001", "nickname": "우수"},
@@ -43,23 +59,32 @@ class _ChattingListPageState extends State<ChattingListPage>
     });
   }
 
-  // 채팅 데이터를 JSON 파일에서 로드하는 함수
   Future<void> _loadChatData() async {
-    final allChatData =
-        await loadJsonData('assets/json/chattingInfo.json', 'chattingInfo');
-    final userData =
-        await loadJsonData('assets/json/userInfo.json', 'userInfo');
-    final currentUser = userData.firstWhere(
-      (user) => user['userId'] == userId,
-      orElse: () => {"chatRooms": []},
-    );
-    final userChatRooms = currentUser['chatRooms'] as List<dynamic>;
-
+    final String response =
+        await rootBundle.loadString('assets/json/chattingInfo.json');
+    final allChattingInfo = json.decode(response)['chattingInfo'];
     setState(() {
-      chatList = allChatData
-          .where((chat) => userChatRooms.contains(chat['chatId']))
+      chatList = allChattingInfo
+          .where(
+              (chat) => chat['sellerId'] == userId || chat['buyerId'] == userId)
           .toList();
     });
+  }
+
+  // 썸네일을 미리 로드하는 새로운 함수
+  Future<void> _preloadThumbnails() async {
+    final String response =
+        await rootBundle.loadString('assets/json/productInfo.json');
+    final productData = json.decode(response)['productInfo'];
+    for (var chat in chatList) {
+      final product = productData.firstWhere(
+        (product) => product['postId'] == chat['postId'],
+        orElse: () => null,
+      );
+      if (product != null) {
+        _thumbnailCache[chat['postId']] = product['thumbnailImage'];
+      }
+    }
   }
 
   // 하단 패널을 표시하는 함수
@@ -169,37 +194,30 @@ class _ChattingListPageState extends State<ChattingListPage>
       itemBuilder: (context, index) {
         final chat = chatList[index];
         final lastMessage = chat['messages'].last;
-        return FutureBuilder(
-          future: _getProductThumbnail(chat['postId']),
-          builder: (context, snapshot) {
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: snapshot.data != null
-                    ? AssetImage(snapshot.data as String)
-                    : NetworkImage('https://placeholder.com/150')
-                        as ImageProvider,
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: AssetImage(
+              _thumbnailCache[chat['postId']] ?? 'assets/default_thumbnail.png',
+            ),
+          ),
+          title: Text(
+              chat['buyerId'] == userId ? chat['sellerId'] : chat['buyerId']),
+          subtitle: Text(lastMessage['content']),
+          trailing: Text(_formatTimestamp(lastMessage['timestamp'])),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChattingPage(
+                  chatId: chat['chatId'],
+                  postId: chat['postId'],
+                  sellerId: chat['sellerId'],
+                  buyerId: chat['buyerId'],
+                  productTitle: '상품명', // productInfo에서 가져오기
+                  productImage: '상품이미지경로', // productInfo에서 가져오기
+                  price: '가격', // productInfo에서 가져오기
+                ),
               ),
-              title: Text(chat['buyerId'] == userId
-                  ? chat['sellerId']
-                  : chat['buyerId']),
-              subtitle: Text(lastMessage['content']),
-              trailing: Text(_formatTimestamp(lastMessage['timestamp'])),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChattingPage(
-                      chatId: chat['chatId'],
-                      postId: chat['postId'],
-                      sellerId: chat['sellerId'],
-                      buyerId: chat['buyerId'],
-                      productTitle: '상품명', // productInfo에서 가져오기
-                      productImage: '상품이미지경로', // productInfo에서 가져오기
-                      price: '가격', // productInfo에서 가져오기
-                    ),
-                  ),
-                );
-              },
             );
           },
         );
@@ -212,17 +230,6 @@ class _ChattingListPageState extends State<ChattingListPage>
     return Center(
       child: Text('알림 목록'),
     );
-  }
-
-  // 상품 썸네일 이미지를 가져오는 함수
-  Future<String?> _getProductThumbnail(String postId) async {
-    final productData =
-        await loadJsonData('assets/json/productInfo.json', 'productInfo');
-    final product = productData.firstWhere(
-      (product) => product['postId'] == postId,
-      orElse: () => null,
-    );
-    return product != null ? product['thumbnailImage'] : null;
   }
 
   // 타임스탬프를 포맷팅하는 함수
