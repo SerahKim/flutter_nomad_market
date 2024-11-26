@@ -1,4 +1,5 @@
 ![Nomad Market 로고](assets/images/logo_images/nomadmarketlogo4_3.png)
+<img src="assets/images/logo_images/nomadmarketlogo4_3.png" width="300", height="200">
 
 # Flutter Nomad Market
 
@@ -7,14 +8,15 @@ Flutter로 개발된 글로벌 중고거래 플랫폼 앱입니다. 사용자가
 ## 프로그램 실행 방법
 
 1. git 프로젝트 클론
-   '''
+
+   ```
    git clone https://github.com/SerahKim/flutter_nomad_market.git
-   '''
+   ```
 
 2. main.dart에서 run 실행
-   '''
+   ```
    code ./lib/main.dart
-   '''
+   ```
 
 ---
 
