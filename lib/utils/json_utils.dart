@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // JSON 파일에서 데이터를 로드하는 함수
 Future<List<dynamic>> loadJsonData(String path, name) async {
-  loadJsonData(path, name);
   final String response = await rootBundle.loadString(path);
   final data = json.decode(response);
   return data[name];
