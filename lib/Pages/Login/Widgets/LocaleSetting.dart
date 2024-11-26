@@ -277,20 +277,18 @@ class CitySelection extends StatelessWidget {
   }
 }
 
-// 통화 설정 페이지
 class CurrencySetting extends StatelessWidget {
   final String selectedCity;
+  final String selectedCurrency;
 
-  CurrencySetting({required this.selectedCity});
+  CurrencySetting({
+    Key? key,
+    required this.selectedCity,
+    this.selectedCurrency = '',
+  }) : super(key: key);
 
-  Future<void> _saveSelectedCurrency(String currency) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedCurrency', currency);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> currencies = [
+  static List<Map<String, dynamic>> getCurrency() {
+    return [
       {'name': 'KRW (₩)', 'flag': 'KR'},
       {'name': 'USD (\$)', 'flag': 'US'},
       {'name': 'EUR (€)', 'flag': 'EU'},
@@ -298,26 +296,30 @@ class CurrencySetting extends StatelessWidget {
       {'name': 'GBP (£)', 'flag': 'GB'},
       {'name': 'CNY (¥)', 'flag': 'CN'},
       {'name': 'AUD (\$)', 'flag': 'AU'},
-      {'name': 'CAD (\$)', 'flag': 'CA'},
+      {'name': 'CAD (\$)', 'flag': 'CA'}
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> currencies = getCurrency();
 
     return GenericSettingPage(
       title: '선호 통화 선택',
       items: currencies,
-      nextPageBuilder: (selectedCurrency) {
-        _saveSelectedCurrency(
-            selectedCurrency.split(' ')[0]); // Save only 'KRW' or 'USD'
-        return NicknameSetting(selectedCity: selectedCity);
-      },
+      nextPageBuilder: (selectedCurrency) => NicknameSetting(
+        selectedCity: selectedCity,
+        selectedCurrency: selectedCurrency,
+      ),
     );
   }
 }
 
 // 닉네임 설정 페이지
 class NicknameSetting extends StatefulWidget {
-  final String selectedCity;
-  NicknameSetting({required this.selectedCity});
-
+  NicknameSetting({required this.selectedCity, required this.selectedCurrency});
+  String selectedCity;
+  String selectedCurrency;
   @override
   _NicknameSettingState createState() => _NicknameSettingState();
 }
@@ -466,6 +468,7 @@ class _NicknameSettingState extends State<NicknameSetting> {
                 MaterialPageRoute(
                     builder: (context) => HomePage(
                           getSelectedCity: widget.selectedCity,
+                          getSelectedCurrency: widget.selectedCurrency,
                         )),
               );
             },
